@@ -2,6 +2,7 @@ package com.airbnb.user_service.controller;
 
 import com.airbnb.user_service.model.User;
 import com.airbnb.user_service.payload.UserDto;
+import com.airbnb.user_service.repository.UserRepository;
 import com.airbnb.user_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -19,10 +21,21 @@ public class UserController {
  @Autowired
  private UserService userService;
 
+ @Autowired
+ private UserRepository userRepository;
+
  @PostMapping("/addGuest")
- public ResponseEntity<UserDto> addGuest(@Valid @RequestBody UserDto userDto){
-     UserDto userDto1 = this.userService.addGuest(userDto);
-     return ResponseEntity.status(HttpStatus.CREATED).body(userDto1);
+ public ResponseEntity<String> addGuest(@Valid @RequestBody UserDto userDto){
+
+     User checkUserExistsOrNot= this.userRepository.findByEmail(userDto.getEmail());
+
+     if(checkUserExistsOrNot != null &&  checkUserExistsOrNot.getEmail().contains(userDto.getEmail()) ){
+         return ResponseEntity.status(HttpStatus.OK).body("Account with the given email exists in the database :(");
+     }
+
+         String result = this.userService.addGuest(userDto);
+         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+
  }
 
  @PostMapping("/addHost")

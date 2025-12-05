@@ -25,7 +25,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
-    public UserDto addGuest(UserDto userDto){
+    public String addGuest(UserDto userDto){
         User user = this.userDtoToUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -35,7 +35,7 @@ public class UserService {
         Role guestRole = roleRepository.findByRoleName("ROLE_USER");
         user.getRoles().add(guestRole);
         User user1 = userRepository.save(user);
-        return this.userToUserDto(user1);
+        return "Guest account created successfully";
     }
 
     public User addHost(User user){
