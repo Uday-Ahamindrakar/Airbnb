@@ -9,4 +9,4 @@ spring:
       server:
         git:
           uri: "file:///Users/uday/full-stack-developement-project/airbnb/backend/config-repo/"
-          default-label: main
+          default-label: master
