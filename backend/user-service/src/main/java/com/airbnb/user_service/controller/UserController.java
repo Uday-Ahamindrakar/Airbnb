@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -39,9 +41,17 @@ public class UserController {
  }
 
  @PostMapping("/addHost")
- public User addHost(@Valid @RequestBody User user){
-     User user1 = this.userService.addHost(user);
-     return user1;
+ public ResponseEntity<String> addHost(@Valid @RequestBody UserDto userDto, BindingResult result){
+     User checkUserExistsOrNot= this.userRepository.findByEmail(userDto.getEmail());
+
+     if(result.hasErrors()){
+         return ResponseEntity.badRequest().body(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
+     }
+     if(checkUserExistsOrNot != null &&  checkUserExistsOrNot.getEmail().contains(userDto.getEmail()) ){
+         return ResponseEntity.status(HttpStatus.OK).body("Account with the given email exists in the database :(");
+     }
+     String responseStatus = this.userService.addHost(userDto);
+     return ResponseEntity.status(HttpStatus.CREATED).body(responseStatus);
  }
 
  @PreAuthorize("hasRole('ADMIN')")

@@ -35,10 +35,11 @@ public class UserService {
         Role guestRole = roleRepository.findByRoleName("ROLE_USER");
         user.getRoles().add(guestRole);
         User user1 = userRepository.save(user);
-        return "Guest account created successfully";
+        return "Guest account successfully created :)";
     }
 
-    public User addHost(User user){
+    public String addHost(UserDto userDto){
+        User user = this.userDtoToUser(userDto);
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
         if(user.getRoles() == null){
@@ -47,7 +48,8 @@ public class UserService {
 
         Role hostRole = roleRepository.findByRoleName("ROLE_HOST");
         user.getRoles().add(hostRole);
-        return userRepository.save(user);
+        User user1 = userRepository.save(user);
+        return "Host account successfully created :)";
     }
 
     public List<User> getAllUsers(){
