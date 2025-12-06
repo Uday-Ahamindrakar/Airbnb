@@ -42,19 +42,34 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        return httpSecurity
-                .csrf(customizer->customizer.disable())
-                .authorizeHttpRequests( request-> request.requestMatchers("/auth/addGuest","/auth/login","/auth/addHost").permitAll().anyRequest().authenticated())
-//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults())
-//                .httpBasic(customizer -> customizer.disable())
-                .sessionManagement(session->session.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+//        return httpSecurity
+//                .csrf(customizer->customizer.disable())
+//                .authorizeHttpRequests( request-> request.requestMatchers("/auth/addGuest","/auth/login","/auth/addHost").permitAll().anyRequest().authenticated())
+////                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//                .httpBasic(Customizer.withDefaults())
+////                .httpBasic(customizer -> customizer.disable())
+//                .sessionManagement(session->session.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
+//
+//    }
 
-    }
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/auth/addGuest", "/auth/login", "/auth/addHost").permitAll()
+                    .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authenticationProvider(authenticationProvider(null, null))
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .httpBasic(auth -> auth.disable())
+            .build();
+}
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
