@@ -24,8 +24,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-//    @Autowired
-//    private JwtFilter jwtFilter;
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
 //                .httpBasic(customizer -> customizer.disable())
                 .sessionManagement(session->session.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
-//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }

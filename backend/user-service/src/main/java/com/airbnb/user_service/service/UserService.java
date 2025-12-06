@@ -7,7 +7,9 @@ import com.airbnb.user_service.repository.RoleRepository;
 import com.airbnb.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.authentication.PasswordEncoderParser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+
+    @Autowired
+    private JwtService jwtService;
 
     public String addGuest(UserDto userDto){
         User user = this.userDtoToUser(userDto);
@@ -50,6 +55,21 @@ public class UserService {
         user.getRoles().add(hostRole);
         User user1 = userRepository.save(user);
         return "Host account successfully created :)";
+    }
+
+    public String verify(UserDto userDto){
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        userDto.getEmail(),
+                        userDto.getPassword()
+                )
+        );
+
+        User savedUser = userRepository.findByEmail(userDto.getEmail());
+        String role = savedUser.getRoles().iterator().next().getRoleName();
+
+        return jwtService.generateToken(savedUser.getEmail(), role);
     }
 
     public List<User> getAllUsers(){

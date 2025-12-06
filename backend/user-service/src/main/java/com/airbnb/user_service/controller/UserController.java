@@ -54,6 +54,12 @@ public class UserController {
      return ResponseEntity.status(HttpStatus.CREATED).body(responseStatus);
  }
 
+    @PostMapping("/login")
+    public String login(@RequestBody UserDto userDto){
+        String result = this.userService.verify(userDto);
+        return result;
+    }
+
  @PreAuthorize("hasRole('ADMIN')")
  @GetMapping("/getAllUsers")
  public List<User> getAllUsers(){
