@@ -2,11 +2,12 @@ package com.airbnb.listing_service.feing;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@Component
+@Configuration
 public class FeignAuthInterceptor implements RequestInterceptor {
 
     @Override
