@@ -18,6 +18,13 @@ spring:
           filters:
             - StripPrefix=0
 
+        - id: listing-service
+          uri: lb://LISTING-SERVICE
+          predicates:
+            - Path=/listing/**
+          filters:
+            - StripPrefix=0
+
 eureka:
   client:
     register-with-eureka: true
