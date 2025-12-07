@@ -65,4 +65,13 @@ public class UserController {
  public List<User> getAllUsers(){
      return this.userService.getAllUsers();
  }
+
+// @PreAuthorize("hasAnyRole('ADMIN', 'HOST', 'USER')")
+ @PreAuthorize("hasRole('ADMIN') or hasRole('HOST') or hasRole('USER')")
+ @GetMapping("/user/{email}")
+ public User getCurrentUserDetials(@PathVariable String email){
+     return this.userService.findByEmail(email);
+ }
+
+
 }

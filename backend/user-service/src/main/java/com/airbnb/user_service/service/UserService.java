@@ -76,6 +76,10 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
+    public User findByEmail(String email){
+        return this.userRepository.findByEmail(email);
+    }
+
     public UserDto userToUserDto(User user){
         return this.modelMapper.map(user, UserDto.class);
     }
