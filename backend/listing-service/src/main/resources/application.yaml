@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: listing-service
+
+  config:
+    import: "configserver:http://localhost:8888"
+
+  cloud:
+    config:
+      enabled: true
+
+
+
+
+
