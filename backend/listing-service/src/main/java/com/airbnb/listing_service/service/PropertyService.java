@@ -6,6 +6,7 @@ import com.airbnb.listing_service.feing.GetUserService;
 import com.airbnb.listing_service.model.Property;
 import com.airbnb.listing_service.model.PropertyPhotos;
 import com.airbnb.listing_service.repository.PropertyRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,7 @@ public class PropertyService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Transactional
     public PropertyDto addProperty(String email,PropertyDto propertyDto){
         UserDto userDto = this.getUserService.getCurrentUserDetials(email);
         propertyDto.setHost_id(userDto.getId());
