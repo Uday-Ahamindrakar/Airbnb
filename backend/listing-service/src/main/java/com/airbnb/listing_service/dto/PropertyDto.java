@@ -18,6 +18,7 @@ import java.util.List;
 @Setter
 public class PropertyDto {
 
+     Long id;
      @NotBlank(message = "Title cannot be empty")
      @NotNull
      @Size(min = 5, message = "Title must be at least 5 charters long")
@@ -45,7 +46,7 @@ public class PropertyDto {
      int max_guest;
 
 
-     Long host_id;
+     Long hostId;
 
 
      String status;

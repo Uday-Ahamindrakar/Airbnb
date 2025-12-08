@@ -37,7 +37,8 @@ public class Property {
 
     private int max_guest;
 
-    private Long host_id;
+    @Column(name = "host_id")  // DB column stays same
+    private Long hostId;
 
     @Enumerated(EnumType.STRING)
     private ListingStatus status;
