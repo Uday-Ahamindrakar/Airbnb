@@ -22,35 +22,35 @@ public class PropertyDto {
      @NotBlank(message = "Title cannot be empty")
      @NotNull
      @Size(min = 5, message = "Title must be at least 5 charters long")
-     String title;
+     private String title;
 
      @NotBlank(message = "Description cannot be blank")
-     String description;
+     private String description;
 
      @NotBlank(message = "City cannot be empty")
      @NotNull
-     String city;
+     private String city;
 
      @NotBlank(message = "Address cannot be empty")
      @NotNull
-     String address;
+     private String address;
 
      @NotBlank(message = "Country cannot be empty")
      @NotNull
-     String country;
+     private String country;
 
      @NotNull
-     double price_per_night;
+     private double price_per_night;
 
      @NotNull
-     int max_guest;
+     private int max_guest;
 
 
-     Long hostId;
+     private Long hostId;
 
 
-     String status;
+     private String status;
 
-     List<PropertyPhotos> photos;
+     private List<PropertyPhotoDto> photos;
 
 }

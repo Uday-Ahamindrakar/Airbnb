@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PropertyService {
 
@@ -62,6 +65,14 @@ public class PropertyService {
 
         Property savedProperty = propertyRepository.save(property);
         return this.PropertyToPropertyDto(savedProperty);
+    }
+
+    public List<PropertyDto> getPropertiesByHostId(String email) {
+        UserDto userDto = getUserService.getCurrentUserDetials(email);
+
+        return propertyRepository.findByHostId(userDto.getId()).stream()
+                .map(property -> modelMapper.map(property, PropertyDto.class))
+                .collect(Collectors.toList());
     }
 
 

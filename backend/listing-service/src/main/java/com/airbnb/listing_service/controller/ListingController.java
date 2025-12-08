@@ -36,6 +36,21 @@ public class ListingController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You're not allowed add property :(");
     }
 
+    @GetMapping("/active-host-all-properties")
+    public ResponseEntity<List<PropertyDto>> activeHostAllProperties(@RequestHeader("X-User-Id") String email, @RequestHeader("X-User-Role") String role){
+        if(role.equals("ROLE_HOST")){
+            List<PropertyDto> properties = this.propertyService.getPropertiesByHostId(email);
+            if(!properties.isEmpty()){
+                return ResponseEntity.status(HttpStatus.OK).body(properties);
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
     @GetMapping("/getAllUsers")
     public List<UserDto> getAllUsers(){
         return this.userService.getAllUsers();
