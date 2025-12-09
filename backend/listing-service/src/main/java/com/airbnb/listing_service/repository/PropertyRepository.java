@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property,Long> {
 
-
+    List<Property> findByHostId(Long hostId);
 }

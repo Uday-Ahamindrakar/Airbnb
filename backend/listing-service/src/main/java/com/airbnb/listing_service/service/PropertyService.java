@@ -3,13 +3,18 @@ package com.airbnb.listing_service.service;
 import com.airbnb.listing_service.dto.PropertyDto;
 import com.airbnb.listing_service.dto.UserDto;
 import com.airbnb.listing_service.feing.GetUserService;
+import com.airbnb.listing_service.model.ListingStatus;
 import com.airbnb.listing_service.model.Property;
 import com.airbnb.listing_service.model.PropertyPhotos;
 import com.airbnb.listing_service.repository.PropertyRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService {
@@ -23,18 +28,51 @@ public class PropertyService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public PropertyDto addProperty(String email,PropertyDto propertyDto){
+//    @Transactional
+//    public PropertyDto addProperty(String email,PropertyDto propertyDto){
+//        UserDto userDto = this.getUserService.getCurrentUserDetials(email);
+//        propertyDto.setHostId(userDto.getId());
+//        propertyDto.setStatus("ACTIVE");
+//        Property property = this.PropertyDtoToProperty(propertyDto);
+//        if(property.getPhotos() != null){
+//            for(PropertyPhotos photos: property.getPhotos()){
+//                photos.setProperty(property);
+//            }
+//        }
+//        Property property1 = this.propertyRepository.save(property);
+//        return this.PropertyToPropertyDto(property1);
+//    }
+
+    @Transactional
+    public PropertyDto addProperty(String email, PropertyDto propertyDto) {
+
+        // get host details
         UserDto userDto = this.getUserService.getCurrentUserDetials(email);
-        propertyDto.setHost_id(userDto.getId());
-        propertyDto.setStatus("ACTIVE");
+
+        propertyDto.setId(null);
+
+        propertyDto.setHostId(userDto.getId());
+
+        propertyDto.setStatus(String.valueOf(ListingStatus.ACTIVE));
+
         Property property = this.PropertyDtoToProperty(propertyDto);
-        if(property.getPhotos() != null){
-            for(PropertyPhotos photos: property.getPhotos()){
+
+        if (property.getPhotos() != null) {
+            for (PropertyPhotos photos : property.getPhotos()) {
                 photos.setProperty(property);
             }
         }
-        Property property1 = this.propertyRepository.save(property);
-        return this.PropertyToPropertyDto(property1);
+
+        Property savedProperty = propertyRepository.save(property);
+        return this.PropertyToPropertyDto(savedProperty);
+    }
+
+    public List<PropertyDto> getPropertiesByHostId(String email) {
+        UserDto userDto = getUserService.getCurrentUserDetials(email);
+
+        return propertyRepository.findByHostId(userDto.getId()).stream()
+                .map(property -> modelMapper.map(property, PropertyDto.class))
+                .collect(Collectors.toList());
     }
 
 

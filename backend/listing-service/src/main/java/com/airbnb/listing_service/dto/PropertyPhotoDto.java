@@ -12,5 +12,6 @@ import lombok.Setter;
 @Setter
 public class PropertyPhotoDto {
 
-    String url;
+    private Long id;
+    private String url;
 }
