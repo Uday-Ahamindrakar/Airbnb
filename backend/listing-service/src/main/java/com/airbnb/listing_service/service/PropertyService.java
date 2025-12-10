@@ -75,6 +75,11 @@ public class PropertyService {
                 .collect(Collectors.toList());
     }
 
+    public List<PropertyDto> getAllProperties(){
+        List<Property> properties = this.propertyRepository.findAll();
+        return properties.stream().map(property -> modelMapper.map(property, PropertyDto.class)).toList();
+    }
+
 
     public Property PropertyDtoToProperty(PropertyDto propertyDto){
         return this.modelMapper.map(propertyDto, Property.class);

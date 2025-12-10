@@ -52,6 +52,11 @@ public class ListingController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
+    @GetMapping("/all-properties")
+    public ResponseEntity<List<PropertyDto>> getAllProperties(){
+       return ResponseEntity.status(HttpStatus.OK).body(this.propertyService.getAllProperties());
+    }
+
     @GetMapping("/getAllUsers")
     public List<UserDto> getAllUsers(){
         return this.userService.getAllUsers();
