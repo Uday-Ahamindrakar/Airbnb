@@ -13,6 +13,6 @@ import { HostService } from '../../../services/host.service';
 export class ListingCardComponent implements OnInit {
   constructor(private hostService: HostService) {}
   ngOnInit(): void {
-    
+    console.log("Hello world"); 
   }
 }
