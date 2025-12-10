@@ -16,7 +16,7 @@ public class SecurityConfig {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(ex -> ex
-                        .pathMatchers("/auth/addGuest","/auth/login","/auth/addHost").permitAll()
+                        .pathMatchers("/auth/addGuest","/auth/login","/auth/addHost","/listing/all-properties").permitAll()
                         .anyExchange().permitAll()  // Gateway filters handle JWT
                 )
                 .build();

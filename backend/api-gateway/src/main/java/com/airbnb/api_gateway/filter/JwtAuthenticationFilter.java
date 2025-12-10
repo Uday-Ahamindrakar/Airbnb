@@ -30,6 +30,10 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
+        if(path.startsWith("/listing/all-properties")){
+            return chain.filter(exchange);
+        }
+
         // Extract Authorization header
         String authHeader = exchange.getRequest()
                 .getHeaders()
