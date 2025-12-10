@@ -10,6 +10,16 @@ spring:
       enabled: false
 
     gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+            allowCredentials: true
+
       routes:
         - id: user-service
           uri: lb://USER-SERVICE
