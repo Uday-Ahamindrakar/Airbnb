@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Property } from '../model/listing';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HostService {
 
-    MOCK_PROPERTIES = [
+  constructor(private http: HttpClient) { }
+
+  MOCK_PROPERTIES : Property[]  = [
   {
     id: 1,
     title: "Sunset Beach Villa",
@@ -15,7 +18,7 @@ export class HostService {
     city: "Miami",
     address: "221 Ocean Drive, Miami Beach",
     country: "USA",
-    price_per_night: 300,
+    price_per_night: 3000,
     max_guest: 8,
     hostId: 5,
     status: "ACTIVE",
@@ -52,7 +55,7 @@ export class HostService {
     hostId: 2,
     status: "ACTIVE",
     photos: [
-      { id: 105, url: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688" },
+      { id: 105, url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=3550&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
       { id: 106, url: "https://images.unsplash.com/photo-1484154218962-a197022b5858" }
     ]
   },
@@ -79,12 +82,12 @@ export class HostService {
     city: "Phoenix",
     address: "99 Sunset Dunes, Phoenix",
     country: "USA",
-    price_per_night: 350,
+    price_per_night: 13150,
     max_guest: 10,
     hostId: 6,
     status: "ACTIVE",
     photos: [
-      { id: 109, url: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" },
+      { id: 109, url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
       { id: 110, url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750" }
     ]
   },
@@ -100,7 +103,7 @@ export class HostService {
     hostId: 3,
     status: "ACTIVE",
     photos: [
-      { id: 111, url: "https://images.unsplash.com/photo-1505692794403-34d0984388bd" },
+      { id: 111, url: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
       { id: 112, url: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae" }
     ]
   },
@@ -116,7 +119,7 @@ export class HostService {
     hostId: 7,
     status: "ACTIVE",
     photos: [
-      { id: 113, url: "https://images.unsplash.com/photo-1449157291145-7efd050a4d0e" },
+      { id: 113, url: "https://images.unsplash.com/photo-1598228723793-52759bba239c?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
       { id: 114, url: "https://images.unsplash.com/photo-1505691938895-1758d7feb511" }
     ]
   },
@@ -164,7 +167,7 @@ export class HostService {
     hostId: 10,
     status: "ACTIVE",
     photos: [
-      { id: 119, url: "https://images.unsplash.com/photo-1505692794403-34d0984388bd" },
+      { id: 119, url: "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?q=80&w=3667&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
       { id: 120, url: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae" }
     ]
   }

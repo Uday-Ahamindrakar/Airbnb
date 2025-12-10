@@ -1,0 +1,30 @@
+<div class="cursor-pointer group">
+  <div class="aspect-square w-full rounded-xl overflow-hidden bg-grey-200">
+    <img
+      [src]="property.photos[0].url"
+      alt="no images"
+      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  </div>
+  <div class="mt-1 pl-1 flex flex-col gap-0">
+    <span class="text-[12px] line-clamp-1">{{property.title}}</span>
+    <div class="w-full flex justify-start items-center gap-1">
+      <span class="text-[9px] text-gray-500"> {{property.price_per_night | currency:'INR':'symbol':'1.0-0'}} pre night. </span>
+      <span class="flex  items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="12px"
+          viewBox="0 -960 960 960"
+          width="12px"
+          fill="#000000"
+        >
+          <path
+            d="M480-678v263l102 78-38-124 114-91H521l-41-126ZM243-144l90-291L96-624h291l93-288 93 288h291L627-435l90 291-237-180-237 180Z"
+          />
+        </svg>
+
+        <span class="text-[9px] text-gray-500 ">4.82 (30)</span>
+      </span>
+    </div>
+  </div>
+</div>

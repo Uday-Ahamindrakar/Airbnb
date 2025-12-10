@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { CommonModule } from '@angular/common';
 import { HostService } from '../../../services/host.service';
+import { Property } from '../../../model/listing';
 
 @Component({
   selector: 'app-listing-card',
@@ -12,7 +13,14 @@ import { HostService } from '../../../services/host.service';
 })
 export class ListingCardComponent implements OnInit {
   constructor(private hostService: HostService) {}
+
+  property : Property[] = [];
+
   ngOnInit(): void {
-    console.log("Hello world"); 
+    this.property = this.hostService.MOCK_PROPERTIES; 
+  }
+
+  trackById(index: number, item: Property): number {
+    return item.id;
   }
 }

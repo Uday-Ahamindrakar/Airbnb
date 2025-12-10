@@ -1,8 +1,15 @@
-export interface Property {
-  id: string;
+import { Photo } from "./photo";
+
+export interface Property  {
+  id: number;
   title: string;
-  location: string;
-  pricePerNight: number;
-  images: string[]; // optional
-  rating?: number;
+  description: string;
+  city: string;
+  address: string;
+  country: string;
+  price_per_night: number;
+  max_guest: number;
+  hostId: number;
+  status: string;
+  photos: Photo[];
 }
