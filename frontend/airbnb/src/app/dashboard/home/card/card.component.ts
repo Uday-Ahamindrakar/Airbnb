@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Listing } from '../../../model/listing';
+
 import { CommonModule } from '@angular/common';
 
 @Component({
