@@ -3,11 +3,12 @@ import { LayoutService } from '../../../services/layout.service';
 import { ActivatedRoute } from '@angular/router';
 import { HostService } from '../../../services/host.service';
 import { Property } from '../../../model/listing';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-property-details',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './property-details.component.html',
   styleUrl: './property-details.component.css'
 })

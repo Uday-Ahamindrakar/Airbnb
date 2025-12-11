@@ -1,3 +1,430 @@
-<div class="w-5xl h-auto mx-auto">
-    <div class="">{{activeProperty.title}}</div>
+<div class="max-w-4xl mx-auto" *ngIf="activeProperty as p; else loading">
+  <div class="flex flex-col items-center">
+    <div class="w-full text-[20px] font-medium ml-4 mb-2">
+      {{ p.title }}
+    </div>
+
+    <div class="w-full rounded-xl p-2 h-96 mb-2">
+      <div class="flex gap-1.5 h-full">
+        <div class="w-1/2 rounded-l-xl overflow-hidden h-full">
+          <img
+            [src]="p?.photos?.[0]?.url"
+            alt="no images"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div class="w-1/2 grid grid-cols-2 grid-rows-2 gap-1.5 h-full">
+          <div class="overflow-hidden w-full h-full bg-gray-200">
+            <img
+              [src]="p?.photos?.[1]?.url || p?.photos?.[0]?.url"
+              alt="no images"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div class="overflow-hidden w-full h-full bg-gray-200 rounded-tr-xl">
+            <img
+              [src]="p?.photos?.[2]?.url || p?.photos?.[0]?.url"
+              alt="no images"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div class="overflow-hidden w-full h-full bg-gray-200">
+            <img
+              [src]="p?.photos?.[3]?.url || p?.photos?.[0]?.url"
+              alt="no images"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div class="overflow-hidden w-full h-full bg-gray-200 rounded-br-xl">
+            <img
+              [src]="p?.photos?.[4]?.url || p?.photos?.[0]?.url"
+              alt="no images"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-[66%_34%] float-start gap-2">
+      <div class="pl-2">
+        <div class="text-[16px] w-[850px] font-medium">
+          {{ p.title }} in {{ p.city }}, India
+        </div>
+        <div class="text-[13px] text-gray-500">
+          {{ p.max_guest }} guest | 2 bedrooms | 3 beds | 2 bathrooms
+        </div>
+        <div
+          class="text-[14px] mt-1 flex justify-start items-center gap-1 mb-6"
+        >
+          <span
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="14px"
+              viewBox="0 -960 960 960"
+              width="14px"
+              fill="#000000"
+            >
+              <path
+                d="M480-678v263l102 78-38-124 114-91H521l-41-126ZM243-144l90-291L96-624h291l93-288 93 288h291L627-435l90 291-237-180-237 180Z"
+              /></svg
+          ></span>
+          <span>4.9 <span class="underline">(75 reviews)</span></span>
+        </div>
+        <div class="border-b border-gray-300"></div>
+        <div class="flex justify-start items-center mt-4">
+          <div class="w-10 h-10 flex justify-center items-center rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="50px"
+              viewBox="0 -960 960 960"
+              width="50px"
+              fill="#000000"
+            >
+              <path
+                d="M237-285q54-38 115.5-56.5T480-360q66 0 127.5 18.5T723-285q35-41 52-91t17-104q0-129.67-91.23-220.84-91.23-91.16-221-91.16Q350-792 259-700.84 168-609.67 168-480q0 54 17 104t52 91Zm243-123q-60 0-102-42t-42-102q0-60 42-102t102-42q60 0 102 42t42 102q0 60-42 102t-102 42Zm.28 312Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.28-72q52 0 100-16.5t90-48.5q-43-27-91-41t-99-14q-51 0-99.5 13.5T290-233q42 32 90 48.5T480-168Zm0-312q30 0 51-21t21-51q0-30-21-51t-51-21q-30 0-51 21t-21 51q0 30 21 51t51 21Zm0-72Zm0 319Z"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col ml-4">
+            <div class="text-[14px] font-medium">Hosted by hostname</div>
+            <div class="text-[11px] text-gray-500">
+              Superhost - 2 years hosting
+            </div>
+          </div>
+        </div>
+        <div class="border-b border-gray-300 my-4"></div>
+        <div class="flex flex-col gap-4">
+          <div class="flex justify-start items-center gap-4">
+            <div
+              class="w-10 h-10 flex justify-center items-center rounded-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="25px"
+                viewBox="0 -960 960 960"
+                width="25px"
+                fill="#000000"
+              >
+                <path
+                  d="M444-96v-480H96l384-288 384 288H516v480h-72Zm36-552h168-336 168ZM144-96v-164l-35-164 70-16 29 140h152v204h-72v-132h-72v132h-72Zm456 0v-204h151l30-140 70 16-35 164v164h-72v-132h-72v132h-72ZM312-648h336L480-774 312-648Z"
+                />
+              </svg>
+            </div>
+            <div class="flex flex-col justify-center">
+              <div class="text-[13px]">Outdoor entertainment</div>
+              <div class="text-[11px] text-gray-500">
+                The sunbeds, pool, alfresco dining and outdoor seating are great
+                for summer trips.
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-start items-center gap-4">
+            <div
+              class="w-10 h-10 flex justify-center items-center rounded-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="25px"
+                viewBox="0 -960 960 960"
+                width="25px"
+                fill="#000000"
+              >
+                <path
+                  d="M416.64-96Q375-96 346-123.5T317-192q0-26 11.5-49.5T362-279q22-14 35-36.92 13-22.91 18-48.96-6-3.12-11-7.12l-10-8-81.03 32.15Q298-342 282-339q-16 3-32 3-80 0-117-63.5T96-543q0-42 27.5-71t68.5-29q26 0 49.5 11.5T279-597t37.5 34.5Q339-550 365-544q3.33-5.67 6.67-11.33Q375-561 380-566l-32.15-81.03Q342-662 339-678q-3-16-3-32 1-80 64.5-117T543-864q42 0 71 27.5t29 68.5q0 26-11.5 49.5T598-681q-22 15-34.5 37.5T545-595q6 3 11 7l10 8 78-31q16-6 32.5-9.5T710-624q73 0 113.5 60T864-416q0 42-27.5 71t-68.33 29q-26.17 0-49.67-12T681-362q-14-22-36.92-35-22.91-13-48.95-18-3.13 6-7.13 11l-8 10 31 78q6 16 9.5 32.5T624-250q-1 72-60.5 113T416.64-96ZM480-420q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Zm-35-188q5-2 11.5-2.75T469-612q8-41 29-75.5t56-56.5q6-5 9-11t3-13q0-8-7-13.5t-16-5.5q-48 0-89 17.5t-41 59.61q0 7.89 1.5 15.89t4.5 16l26 70ZM250-413q9 0 36-7l67-25.36q-2-5.64-3.12-11.8-1.13-6.16-1.88-11.84-41-8-75.5-29T216-554q-4-6-10.07-9-6.06-3-13.53-3-8.4 0-13.9 7t-5.5 16q0 48 17.5 89t59.5 41Zm167 240q48 0 89-17.5t41-59.5q0-11-2-21.5t-6-20.5l-24-61q-5.76 1.67-12 2.92T491-348q-8 41-29 75.5T406-216q-6 4-9.5 10t-2.5 14q1.27 7.6 7.64 13.3Q408-173 417-173Zm351-221q8 0 13.5-7t5.5-16q0-48-17.5-89T710-547q-10.08 0-19.04 1.5Q682-544 673-540l-66 25q1.67 5.76 2.92 12t2.08 12q41 8 75.5 29t56.5 56q4 6 10.67 9 6.66 3 13.33 3Zm-156-97ZM469-612ZM348-469Zm143 121Z"
+                />
+              </svg>
+            </div>
+            <div class="flex flex-col justify-center">
+              <div class="text-[13px]">Designed for staying cool</div>
+              <div class="text-[11px] text-gray-500">
+                Beat the heat with the A/C and ceiling fan.
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-start items-center gap-4">
+            <div
+              class="w-10 h-10 flex justify-center items-center rounded-full"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="25px"
+                viewBox="0 -960 960 960"
+                width="25px"
+                fill="#000000"
+              >
+                <path
+                  d="M443.79-444q15.21 0 25.71-10.29t10.5-25.5q0-15.21-10.29-25.71t-25.5-10.5q-15.21 0-25.71 10.29t-10.5 25.5q0 15.21 10.29 25.71t25.5 10.5ZM288-145v-71l240-48v-393q0-16.92-10.5-30.46T490-704l-202-40v-72l217 40q41.8 8.07 68.4 41.35Q600-701.37 600-657v450l-312 62Zm-144 1v-72h72v-528q0-30 21.15-51T288-816h384q30 0 51 21t21 51v528h72v72H144Zm144-72h384v-528H288v528Z"
+                />
+              </svg>
+            </div>
+            <div class="flex flex-col justify-center">
+              <div class="text-[13px]">Self check-in</div>
+              <div class="text-[11px] text-gray-500">
+                Check yourself in with the keypad.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-b border-gray-300 my-4"></div>
+        <div class="text-[13px]">
+          {{ p.description }} <br />
+          What you would love about Gaia Aura: -> 2 minutes drive to the popular
+          beaches, restaurants & bars in North Goa ->An elegant, 2 BHK apartment
+          with a private balcony & rooftop pool and gym fully furnished with all
+          the modern amenities
+        </div>
+        <div class="border-b border-gray-300 my-4"></div>
+        <div class="text-[16px] font-medium mb-4">Where you'll sleep</div>
+        <div class="flex justify-start items-center gap-3">
+          <div class="w-1/2 flex flex-col gap-2">
+            <img
+              class="rounded-xl"
+              src="https://images.unsplash.com/photo-1737467016100-68cd7759d93c"
+              alt=""
+            />
+            <div class="flex flex-col">
+              <div class="text-[14px] font-medium ml-1">Bedroom 1</div>
+              <div class="text-[11px] text-gray-500 ml-1">1 King bed</div>
+            </div>
+          </div>
+
+          <div class="w-1/2 flex flex-col gap-2">
+            <img
+              class="rounded-xl"
+              src="https://images.unsplash.com/photo-1737467016100-68cd7759d93c"
+              alt=""
+            />
+            <div class="flex flex-col">
+              <div class="text-[14px] font-medium ml-1">Bedroom 2</div>
+              <div class="text-[11px] text-gray-500 ml-1">1 King bed</div>
+            </div>
+          </div>
+        </div>
+        <div class="border-b border-gray-300 my-4"></div>
+        <div class="text-[16px] font-medium mb-4">What this place offers</div>
+        <div class="flex gap-24">
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="25px"
+                  viewBox="0 -960 960 960"
+                  width="25px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M323.97-408Q229-408 162.5-474.5T96-636q0-95 66.61-161.5Q229.23-864 323.99-864H339q-21 23-32 52.54t-11 60.99Q296-679 345.66-629q49.65 50 120.59 50 21.75 0 43.06-5.5Q530.63-590 550-601q-13.3 84.08-76.93 138.54Q409.44-408 323.97-408Zm.03-72q26 0 50-8t44-24q-85-17-139.5-83.5T224-750v-5q-26 23-41 53.5T168-636q0 65 45.54 110.5T324-480Zm372-48h96v-120h-96v120Zm48 170q20.4 0 34.2-13.8Q792-385.6 792-406v-50h-96v50q0 20.4 13.8 34.2Q723.6-358 744-358ZM250-168h148q16.72 0 29.86-10T445-204l11-36H192l11 36q4 16 17.14 26T250-168Zm74 0ZM48-96v-72h92q-2-5-3.5-10.5T133-189L86-312h470l-40 123q-2 5-3.5 10.5T509-168h199v-126q-38-12-61-43.62-23-31.62-23-70.38v-312h240v312q0 38.76-23 70.38Q818-306 780-294v126h132v72H48Zm245-522Zm451 162Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Kitchen
+              </div>
+            </div>
+
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="m387-412 35-114-92-74h114l36-112 36 112h114l-93 74 35 114-92-71-93 71ZM240-40v-309q-38-42-59-96t-21-115q0-134 93-227t227-93q134 0 227 93t93 227q0 61-21 115t-59 96v309l-240-80-240 80Zm240-280q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70ZM320-159l160-41 160 41v-124q-35 20-75.5 31.5T480-240q-44 0-84.5-11.5T320-283v124Zm160-62Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Workspace
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M80-120v-80q38 0 57-20t75-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-160q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-57 20t-77 20q-56 0-77-20t-57-20q-36 0-54.5 20T80-120Zm0-180v-80q38 0 57-20t75-20q56 0 77.5 20t56.5 20q36 0 57-20t77-20q56 0 77 20t57 20q36 0 57-20t77-20q56 0 75 20t57 20v80q-59 0-77.5-20T748-340q-36 0-55.5 20T614-300q-57 0-77.5-20T480-340q-38 0-56.5 20T346-300q-59 0-78.5-20T212-340q-36 0-54.5 20T80-300Zm196-204 133-133-40-40q-33-33-70-48t-91-15v-100q75 0 124 16.5t96 63.5l256 256q-17 11-33 17.5t-37 6.5q-36 0-57-20t-77-20q-56 0-77 20t-57 20q-21 0-37-6.5T276-504Zm392-336q42 0 71 29.5t29 70.5q0 42-29 71t-71 29q-42 0-71-29t-29-71q0-41 29-70.5t71-29.5Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Pool
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M280-240h120v-160h40v-100q0-33-23.5-56.5T360-580h-40q-33 0-56.5 23.5T240-500v100h40v160Zm60-380q21 0 35.5-14.5T390-670q0-21-14.5-35.5T340-720q-21 0-35.5 14.5T290-670q0 21 14.5 35.5T340-620Zm180 100h200L620-680 520-520Zm100 240 100-160H520l100 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0 0v-560 560Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Lift
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M340-360q-25 0-42.5-17.5T280-420q0-25 17.5-42.5T340-480q25 0 42.5 17.5T400-420q0 25-17.5 42.5T340-360Zm140 120q-25 0-42.5-17.5T420-300q0-25 17.5-42.5T480-360q25 0 42.5 17.5T540-300q0 25-17.5 42.5T480-240ZM340-120q-25 0-42.5-17.5T280-180q0-25 17.5-42.5T340-240q25 0 42.5 17.5T400-180q0 25-17.5 42.5T340-120Zm280-240q-25 0-42.5-17.5T560-420q0-25 17.5-42.5T620-480q25 0 42.5 17.5T680-420q0 25-17.5 42.5T620-360Zm0 240q-25 0-42.5-17.5T560-180q0-25 17.5-42.5T620-240q25 0 42.5 17.5T680-180q0 25-17.5 42.5T620-120Zm140-120q-25 0-42.5-17.5T700-300q0-25 17.5-42.5T760-360q25 0 42.5 17.5T820-300q0 25-17.5 42.5T760-240Zm-560 0q-25 0-42.5-17.5T140-300q0-25 17.5-42.5T200-360q25 0 42.5 17.5T260-300q0 25-17.5 42.5T200-240Zm136-320q-26 0-47-15.5T260-616l-20-64h-40q-33 0-56.5-23.5T120-760v-120h720v120q0 33-23.5 56.5T760-680h-40l-26 68q-9 23-29 37.5T620-560H336ZM200-800v40h560v-40H200Zm124 120 12 40h288l12-40H324ZM200-800v40-40Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                <span class="line-through">Carbon monoxide alarm</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M480-120q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM254-346l-84-86q59-59 138.5-93.5T480-560q92 0 171.5 35T790-430l-84 84q-44-44-102-69t-124-25q-66 0-124 25t-102 69ZM84-516 0-600q92-94 215-147t265-53q142 0 265 53t215 147l-84 84q-77-77-178.5-120.5T480-680q-116 0-217.5 43.5T84-516Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                <span class="">Wifi</span>
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M240-200v40q0 17-11.5 28.5T200-120h-40q-17 0-28.5-11.5T120-160v-320l84-240q6-18 21.5-29t34.5-11h440q19 0 34.5 11t21.5 29l84 240v320q0 17-11.5 28.5T800-120h-40q-17 0-28.5-11.5T720-160v-40H240Zm-8-360h496l-42-120H274l-42 120Zm-32 80v200-200Zm100 160q25 0 42.5-17.5T360-380q0-25-17.5-42.5T300-440q-25 0-42.5 17.5T240-380q0 25 17.5 42.5T300-320Zm360 0q25 0 42.5-17.5T720-380q0-25-17.5-42.5T660-440q-25 0-42.5 17.5T600-380q0 25 17.5 42.5T660-320Zm-460 40h560v-200H200v200Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Free parking on premises
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M320-120v-80H160q-33 0-56.5-23.5T80-280v-480q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v480q0 33-23.5 56.5T800-200H640v80H320ZM160-280h640v-480H160v480Zm0 0v-480 480Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Tv
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h480q33 0 56.5 23.5T800-800v640q0 33-23.5 56.5T720-80H240Zm0-80h480v-640H240v640Zm240-40q83 0 141.5-58.5T680-400q0-83-58.5-141.5T480-600q-83 0-141.5 58.5T280-400q0 83 58.5 141.5T480-200Zm0-68q-26 0-50.5-9.5T386-306l188-188q19 19 28.5 43.5T612-400q0 55-38.5 93.5T480-268ZM320-680q17 0 28.5-11.5T360-720q0-17-11.5-28.5T320-760q-17 0-28.5 11.5T280-720q0 17 11.5 28.5T320-680Zm120 0q17 0 28.5-11.5T480-720q0-17-11.5-28.5T440-760q-17 0-28.5 11.5T400-720q0 17 11.5 28.5T440-680ZM240-160v-640 640Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                Washing machine
+              </div>
+            </div>
+            <div class="flex justify-start items-center gap-4">
+              <div
+                class="w-8 h-8 flex justify-center items-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#000000"
+                >
+                  <path
+                    d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"
+                  />
+                </svg>
+              </div>
+              <div class="text-[14px] flex items-center mt-1 text-gray-500">
+                <span class="line-through">Smoke alarm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-b border-gray-300 my-4"></div>
+        <div class="text-[16px] font-medium mb-4">
+          Per night in {{ p.city }}
+        </div>
+        
+      </div>
+      <div class="pl-2"></div>
+    </div>
+  </div>
 </div>
+
+<ng-template #loading>
+  <p class="text-center py-10">Loading property details...</p>
+</ng-template>
