@@ -13,10 +13,15 @@ import { Property } from '../../../model/listing';
 export class CardComponent implements OnInit {
 
   @Input() property!: Property; 
+  @Output() selectProperty: EventEmitter<Property> = new EventEmitter<Property>();   
 
   constructor() {
     
   }
   ngOnInit(): void {
+  }
+
+  onCardClick() {
+    this.selectProperty.emit(this.property);
   }
 }

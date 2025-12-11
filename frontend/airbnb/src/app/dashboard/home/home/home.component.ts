@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
+import { LayoutService } from '../../../services/layout.service';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,10 @@ import { ListingCardComponent } from '../listing-card/listing-card.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  constructor(private layoutService : LayoutService) { }
+  ngOnInit(): void {
+    this.layoutService.setHomePage(true);
+  }
 
 }

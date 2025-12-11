@@ -1,5 +1,8 @@
 <div class="cursor-pointer group">
-  <div class="aspect-square w-full rounded-xl overflow-hidden bg-grey-200">
+  <div
+    class="aspect-square w-full rounded-xl overflow-hidden bg-grey-200"
+    (click)="onCardClick()"
+  >
     <img
       [src]="property.photos[0].url"
       alt="no images"
@@ -7,10 +10,17 @@
     />
   </div>
   <div class="mt-1 pl-1 flex flex-col gap-0">
-    <span class="text-[12px] line-clamp-1">{{property.title}}</span>
+    <span class="text-[10px] font-medium line-clamp-1">{{
+      property.title
+    }}</span>
     <div class="w-full flex justify-start items-center gap-1">
-      <span class="text-[9px] text-gray-500"> {{property.price_per_night | currency:'INR':'symbol':'1.0-0'}} pre night. </span>
-      <span class="flex  items-center">
+      <span class="text-[9px] text-gray-500">
+        {{
+          property.price_per_night | currency : "INR" : "symbol" : "1.0-0"
+        }}
+        pre night.
+      </span>
+      <span class="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="12px"
@@ -23,7 +33,7 @@
           />
         </svg>
 
-        <span class="text-[9px] text-gray-500 ">4.82 (30)</span>
+        <span class="text-[9px] text-gray-500">4.82 (30)</span>
       </span>
     </div>
   </div>
