@@ -1,38 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../../services/layout.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HostService } from '../../../services/host.service';
 import { Property } from '../../../model/listing';
 import { CommonModule } from '@angular/common';
+import { CalendarComponent } from '../calendar/calendar.component';
+import { A11yModule } from '@angular/cdk/a11y';
+import { UserService } from '../../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-property-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CalendarComponent, A11yModule],
   templateUrl: './property-details.component.html',
-  styleUrl: './property-details.component.css'
+  styleUrl: './property-details.component.css',
 })
 export class PropertyDetailsComponent implements OnInit {
-
   propertyId!: number;
   properties: Property[] = [];
   activeProperty!: Property;
 
-  constructor(private layoutService : LayoutService, private route: ActivatedRoute, private hostService: HostService) { }
+  constructor(
+    private layoutService: LayoutService,
+    private route: ActivatedRoute,
+    private hostService: HostService,
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
+  
   ngOnInit(): void {
     this.layoutService.setHomePage(false);
+     this.layoutService.setHideMainMenu(false);
     this.propertyId = Number(this.route.snapshot.paramMap.get('id'));
     this.hostService.getAllActiveProperties().subscribe({
       next: (data) => {
         this.properties = data;
-        this.activeProperty = this.properties.find(prop => prop.id === this.propertyId)!;
+        this.activeProperty = this.properties.find(
+          (prop) => prop.id === this.propertyId
+        )!;
         // console.log("Fetched properties from backend:", this.properties);
       },
       error: (error) => {
         console.error('Error fetching properties:', error);
       },
     });
+
+    this.userService.setProperty(this.activeProperty);
   }
 
+  checkoutPage() {
+    this.router.navigate(['/checkout']);
+    // this.router.navigate(['/checkout'], { state: { property: this.activeProperty } });
+    // this.router.navigate(['/checkout', this.activeProperty.id]);
+  }
+
+  notify() {
+    this.toastr.success('Standalone works', 'Success');
+  }
 }

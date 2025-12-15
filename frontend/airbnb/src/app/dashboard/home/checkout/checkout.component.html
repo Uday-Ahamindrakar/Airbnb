@@ -1,0 +1,40 @@
+<div class="max-w-4xl mx-auto box-border">
+  <div class="flex justify-start ">
+    <div class="w-16">
+      <div
+        class="w-10 h-10 bg-gray-100 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer"
+        (click)="goBack()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#e31b57"
+        >
+          <path
+            d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"    
+          />
+        </svg>
+      </div>
+    </div>
+    <div class="w-full ">
+        <div class="flex flex-col mb-5">
+            <div class="text-[26px] font-semibold">Confirm and pay</div>
+        </div>
+        <div class="flex justify-start gap-15">
+            <div class="flex flex-col gap-5">
+                <div class="w-[400px] h-18 rounded-2xl border border-gray-300 bg-white px-6 py-4">
+                    <div class="flex justify-between items-center">
+                        <h2>Login or signup</h2>
+                        <button class=" bg-[#e31b57] rounded-xl text-white px-4 py-2 cursor-pointer" (click)="openLogin()">Continue</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="w-[300px] h-96 rounded-2xl border border-gray-300 bg-white px-6 py-4"></div>
+        </div>
+        
+    </div>
+  </div>
+</div>

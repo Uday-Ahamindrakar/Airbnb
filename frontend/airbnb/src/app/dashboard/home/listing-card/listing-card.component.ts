@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HostService } from '../../../services/host.service';
 import { Property } from '../../../model/listing';
 import { Router } from '@angular/router';
+import { LayoutService } from '../../../services/layout.service';
 
 @Component({
   selector: 'app-listing-card',
@@ -13,11 +14,12 @@ import { Router } from '@angular/router';
   styleUrl: './listing-card.component.css',
 })
 export class ListingCardComponent implements OnInit {
-  constructor(private hostService: HostService, private router: Router) {}
+  constructor(private hostService: HostService, private router: Router, private layoutService : LayoutService) {}
 
   property: Property[] = [];
 
   ngOnInit(): void {
+    this.layoutService.setHideMainMenu(false);
     this.hostService.getAllActiveProperties().subscribe({
       next: (data) => {
         this.property = data;

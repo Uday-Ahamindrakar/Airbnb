@@ -1,1 +1,129 @@
-<p>signup works!</p>
+<div class="flex flex-col w-full max-w-md mx-auto bg-white">
+  <div class="flex items-center h-12 px-2 border-b border-gray-300">
+    <div class="flex-1 text-center text-sm font-semibold">Sign up as User</div>
+  </div>
+
+  <!-- Form -->
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col items-center px-4 mt-6 gap-4"
+  >
+    <!-- Email -->
+    <div class="w-full border rounded-xl overflow-hidden">
+      <div class="flex items-center h-12">
+        <div class="w-1/3 flex items-center justify-center border-r text-sm">
+          Name
+        </div>
+        <input
+          type="text"
+          formControlName="name"
+          class="flex-1 px-3 text-sm outline-none"
+          placeholder="Enter your full name"
+        />
+      </div>
+
+      <p
+        *ngIf="loginForm.get('name')?.invalid && loginForm.get('name')?.touched"
+        class="text-xs text-red-500 px-3 py-1"
+      >
+        Enter a valid name
+      </p>
+    </div>
+
+    <div class="w-full border rounded-xl overflow-hidden">
+      <div class="flex items-center h-12">
+        <div class="w-1/3 flex items-center justify-center border-r text-sm">
+          Email
+        </div>
+        <input
+          type="email"
+          formControlName="email"
+          class="flex-1 px-3 text-sm outline-none"
+          placeholder="you@gmail.com"
+        />
+      </div>
+
+      <p
+        *ngIf="
+          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+        "
+        class="text-xs text-red-500 px-3 py-1"
+      >
+        Enter a valid email address
+      </p>
+    </div>
+
+    <div class="w-full border rounded-xl overflow-hidden">
+      <div class="flex items-center h-12">
+        <div class="w-1/3 flex items-center justify-center border-r text-sm">
+          Password
+        </div>
+        <input
+          type="password"
+          formControlName="password"
+          class="flex-1 px-3 text-sm outline-none"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <p
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched
+        "
+        class="text-xs text-red-500 px-3 py-1"
+      >
+        Password is required
+      </p>
+    </div>
+
+    <div class="w-full border rounded-xl overflow-hidden">
+      <div class="flex items-center h-12">
+        <div class="w-1/3 flex items-center justify-center border-r text-sm">
+          Phone Number
+        </div>
+        <input
+          type="tel"
+          formControlName="phone"
+          class="flex-1 px-3 text-sm outline-none"
+          placeholder="8888888888"
+        />
+      </div>
+
+      <p
+        *ngIf="
+          loginForm.get('phone')?.invalid && loginForm.get('phone')?.touched
+        "
+        class="text-xs text-red-500 px-3 py-1"
+      >
+        Enter a valid Phone Number
+      </p>
+    </div>
+
+    <!-- <div class="w-full border rounded-xl overflow-hidden">
+      <div class="flex items-center h-12">
+        
+        <select
+          name=""
+          id=""
+          class="w-full h-full flex items-center justify-center text-sm outline-none px-4"
+          formControlName="provider"
+          required
+        >
+          <option value="" disabled>Create account using</option>
+          <option value="india">Guest</option>
+          <option value="usa">Host</option>
+        </select>
+      </div>
+    </div> -->
+
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+      class="w-full h-12 rounded-lg bg-[#ff385d] text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed mb-4 cursor-pointer"
+    >
+      Continue
+    </button>
+  </form>
+</div>

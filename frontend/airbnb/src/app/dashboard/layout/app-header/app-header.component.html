@@ -1,14 +1,24 @@
-<header class="flex justify-between items-center px-8 py-5 shadow bg-[#F7F7F7]  top-0 z-50 mb-8" [ngClass]="{'sticky': isHomePage}">
-  <div class="flex items-center gap-2 cursor-pointer" (click)="navigateToHomePage()">
+<header
+  class="flex justify-between items-center px-8 py-5 shadow bg-[#F7F7F7] top-0 z-50 mb-8"
+  [ngClass]="{ sticky: isHomePage }"
+>
+  <div
+    class="flex items-center gap-2 cursor-pointer"
+    (click)="navigateToHomePage()"
+  >
     <img src="../../../../assets/images/Logo.svg" class="h-6" />
   </div>
 
   <div
     class="flex gap-3 bg-white-100 px-1 py-0 rounded-full shadow-gray-400 cursor-pointer border border-gray-300 justify-center items-center hover:shadow-md transition-shadow duration-200"
+    [ngClass]="{ hidden: hideMainMenu }"
   >
     <div class="flex items-center gap-2">
-      
-      <img class="w-8 h-8" src="../../../../assets/images/anywhere.avif" alt="">
+      <img
+        class="w-8 h-8"
+        src="../../../../assets/images/anywhere.avif"
+        alt=""
+      />
       <span class="text-xs font-normal"> Anywhere</span>
     </div>
 
@@ -35,7 +45,7 @@
     </div>
   </div>
 
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-4" [ngClass]="{ hidden: hideMainMenu }">
     <button
       class="p-2 rounded-full hover:bg-gray-200 text-xs cursor-pointer font-semibold"
     >
@@ -66,11 +76,40 @@
         viewBox="0 -960 960 960"
         width="20px"
         fill="#ff385d"
+        (click)="toggle(); $event.stopPropagation()"
       >
         <path
           d="M144-264v-72h672v72H144Zm0-180v-72h672v72H144Zm0-180v-72h672v72H144Z"
         />
       </svg>
+
+      <div
+        *ngIf="isOpen"
+        class="absolute top-12 right-1 z-10 mt-2 w-30 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+      >
+        <div class="py-1">
+          <div
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            (click)="close()"
+          >
+            Profile
+          </div>
+
+          <div
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            (click)="openLogin()"
+          >
+            Login
+          </div>
+
+          <button
+            class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+            (click)="close()"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </header>
