@@ -48,9 +48,16 @@
   <div class="flex items-center gap-4" [ngClass]="{ hidden: hideMainMenu }">
     <button
       class="p-2 rounded-full hover:bg-gray-200 text-xs cursor-pointer font-semibold"
+      [ngClass]="{ hidden: userLoggedIn }"
     >
       Become a host
     </button>
+     <div
+      class="p-2 rounded-full hover:bg-gray-200 text-xs cursor-pointer "
+      [ngClass]="{ hidden: !userLoggedIn }"
+    >
+      Welcome {{user.name.split(' ')[0]}}
+  </div>
     <div
       class="h-8 w-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
     >
@@ -91,20 +98,25 @@
           <div
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             (click)="close()"
+            [ngClass]="{ hidden: !userLoggedIn }"
           >
             Profile
           </div>
 
+          
+
           <div
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             (click)="openLogin()"
+            [ngClass]="{ hidden: userLoggedIn }"
           >
             Login
           </div>
 
           <button
             class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
-            (click)="close()"
+            (click)="close(); logout()"
+            [ngClass]="{ hidden: !userLoggedIn }"
           >
             Logout
           </button>

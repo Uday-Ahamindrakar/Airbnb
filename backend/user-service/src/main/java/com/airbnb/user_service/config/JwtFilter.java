@@ -50,3 +50,74 @@ public class JwtFilter  extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+
+
+//
+//@Component
+//public class JwtFilter extends OncePerRequestFilter {
+//
+//    @Autowired
+//    private JwtService jwtService;
+//
+//    @Autowired
+//    private ApplicationContext context;
+//
+//    @Override
+//    protected void doFilterInternal(
+//            HttpServletRequest request,
+//            HttpServletResponse response,
+//            FilterChain filterChain
+//    ) throws ServletException, IOException {
+//
+//        String token = getJwtFromCookie(request);
+//        String username = null;
+//
+//        if (token != null) {
+//            username = jwtService.extractEmail(token);
+//        }
+//
+//        if (username != null &&
+//                SecurityContextHolder.getContext().getAuthentication() == null) {
+//
+//            UserDetails userDetails = context
+//                    .getBean(MyUserDetailsService.class)
+//                    .loadUserByUsername(username);
+//
+//            if (jwtService.validateToken(token, userDetails)) {
+//
+//                UsernamePasswordAuthenticationToken authToken =
+//                        new UsernamePasswordAuthenticationToken(
+//                                userDetails,
+//                                null,
+//                                userDetails.getAuthorities()
+//                        );
+//
+//                authToken.setDetails(
+//                        new WebAuthenticationDetailsSource()
+//                                .buildDetails(request)
+//                );
+//
+//                SecurityContextHolder
+//                        .getContext()
+//                        .setAuthentication(authToken);
+//            }
+//        }
+//
+//        filterChain.doFilter(request, response);
+//    }
+//
+//
+//    private String getJwtFromCookie(HttpServletRequest request) {
+//
+//        if (request.getCookies() == null) return null;
+//
+//        for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+//            if ("access_token".equals(cookie.getName())) {
+//                return cookie.getValue();
+//            }
+//        }
+//        return null;
+//    }
+//}
+//
+//

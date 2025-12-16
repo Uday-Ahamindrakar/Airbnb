@@ -95,3 +95,84 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         return -1; // Must run BEFORE routing filters
     }
 }
+
+
+//
+//package com.airbnb.api_gateway.filter;
+//
+//import com.airbnb.api_gateway.util.JwtUtil;
+//import io.jsonwebtoken.Claims;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+//import org.springframework.cloud.gateway.filter.GlobalFilter;
+//import org.springframework.core.Ordered;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.server.reactive.ServerHttpRequest;
+//import org.springframework.stereotype.Component;
+//import org.springframework.web.server.ServerWebExchange;
+//import reactor.core.publisher.Mono;
+//
+//@Component
+//@RequiredArgsConstructor
+//public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
+//
+//    private final JwtUtil jwtUtil;
+//
+//    @Override
+//    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+//
+//        String path = exchange.getRequest().getURI().getPath();
+//
+//        if (path.startsWith("/auth") || path.startsWith("/listing/all-properties")) {
+//            return chain.filter(exchange);
+//        }
+//
+//        String token = extractJwtFromCookie(exchange);
+//
+//        if (token == null || !jwtUtil.validateToken(token)) {
+//            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return exchange.getResponse().setComplete();
+//        }
+//
+//        Claims claims = jwtUtil.extractAllClaims(token);
+//        String userId = claims.getSubject();
+//        String role = claims.get("role", String.class);
+//
+//        if (role == null) {
+//            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return exchange.getResponse().setComplete();
+//        }
+//
+//        ServerHttpRequest modifiedRequest = exchange.getRequest()
+//                .mutate()
+//                .header("X-User-Id", userId)
+//                .header("X-User-Role", role)
+//                .build();
+//
+//        ServerWebExchange modifiedExchange = exchange.mutate()
+//                .request(modifiedRequest)
+//                .build();
+//
+//        return chain.filter(modifiedExchange);
+//    }
+//
+//    private String extractJwtFromCookie(ServerWebExchange exchange) {
+//
+//        if (exchange.getRequest().getCookies() == null) {
+//            return null;
+//        }
+//
+//        return exchange.getRequest()
+//                .getCookies()
+//                .getFirst("access_token") != null
+//                ? exchange.getRequest().getCookies().getFirst("access_token").getValue()
+//                : null;
+//    }
+//
+//    @Override
+//    public int getOrder() {
+//        return -1;
+//    }
+//}
+//
+//

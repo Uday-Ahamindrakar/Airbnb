@@ -6,7 +6,9 @@ import com.airbnb.user_service.repository.UserRepository;
 import com.airbnb.user_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
@@ -59,6 +61,40 @@ public class UserController {
         String result = this.userService.verify(userDto);
         return result;
     }
+//@PostMapping("/login")
+//public ResponseEntity<?> login(@RequestBody UserDto userDto) {
+//
+//    // Generate JWT
+//    String jwt = this.userService.verify(userDto); // returns JWT
+//
+//    // Create HTTP-only cookie
+//    ResponseCookie cookie = ResponseCookie.from("access_token", jwt)
+//            .httpOnly(true)          // cannot access via JS
+//            .secure(false)           // true in production (HTTPS)
+//            .sameSite("Strict")      // CSRF protection
+//            .path("/")
+//            .maxAge(30 * 60)         // 30 minutes
+//            .build();
+//
+//    return ResponseEntity.ok()
+//            .header(HttpHeaders.SET_COOKIE, cookie.toString())
+//            .body("Login successful");
+//}
+
+//    @PostMapping("/logout")
+//    public ResponseEntity<?> logout() {
+//
+//        ResponseCookie cookie = ResponseCookie.from("access_token", "")
+//                .httpOnly(true)
+//                .secure(false)
+//                .path("/")
+//                .maxAge(0)
+//                .build();
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+//                .body("Logged out");
+//    }
 
  @PreAuthorize("hasRole('ADMIN')")
  @GetMapping("/getAllUsers")

@@ -84,11 +84,39 @@ export class LoginComponent {
       return;
     }
 
+    // this.userService.login(this.email.value!, this.password.value!).subscribe({
+    //   next: (token: string) => {
+    //     localStorage.setItem('access_token', token);
+
+    //     this.userService.getActiveUser().subscribe({
+    //       next: (user) => {
+    //         console.log('Active User:', user);
+    //         this.userService.setActiveUser(user);
+    //         this.toastr.success('Login successful!');
+    //         // this.router.navigate(['/checkout']);
+    //         this.closeDialog();
+    //       },
+    //       error: (error) => {
+    //         console.error('Error fetching active user:', error);
+    //       },
+    //     });
+    //   },
+    //   error: (error) => {
+    //     console.error('Login failed:', error);
+    //     this.toastr.error('Login failed. Please check your credentials.');
+    //   },
+    // });
     this.userService.login(this.email.value!, this.password.value!).subscribe({
-      next: (response) => {
-        console.log('Login successful:', response);
-        this.toastr.success('Login successful!');
-        this.closeDialog();
+      next: (token) => {
+        this.userService.setLoggedIn(token); 
+        this.toastr.success('Login successful');
+        this.userService.getActiveUser().subscribe((data)=>{
+          // this.userService.setActiveUser(data);
+          localStorage.setItem('user', JSON.stringify(data));
+          this.userService.setActiveUser(data); 
+
+        })
+        this.dialogRef.close();
       },
       error: (error) => {
         console.error('Login failed:', error);
