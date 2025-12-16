@@ -72,7 +72,7 @@ export class AppHeaderComponent implements OnInit {
     this.userService.activeUser$.subscribe((data)=>{
       if(data){
         this.user = data;
-        console.log("Header component : "+data);
+        console.log("Header component : ",data);
       }
     })
   }
@@ -109,6 +109,7 @@ export class AppHeaderComponent implements OnInit {
   logout() {
   this.close();
   this.userService.logout(); 
+ 
   this.router.navigate(['/home']);
   this.toaster.success('Logout successful!');
 }

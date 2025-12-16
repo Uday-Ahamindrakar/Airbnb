@@ -27,28 +27,23 @@ export class UserService {
   private showLoginPopup$ = new Subject<void>();
   showLogin$ = this.showLoginPopup$.asObservable();
 
-
   constructor(
-  @Inject(PLATFORM_ID) private platformId: Object,
-  private http: HttpClient
-) {
-  if (isPlatformBrowser(this.platformId)) {
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      // login status
+      const token = localStorage.getItem('access_token');
+      this._loggedIn$.next(!!token);
 
-    // login status
-    const token = localStorage.getItem('access_token');
-    this._loggedIn$.next(!!token);
-
-    // restore user
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.activeUserSubject.next(JSON.parse(storedUser));
+      // restore user
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        this.activeUserSubject.next(JSON.parse(storedUser));
+      }
     }
   }
-}
 
-
-
-  
   requestLogin() {
     this.showLoginPopup$.next();
   }
@@ -79,12 +74,13 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('access_token');
+
+    localStorage.removeItem('user');
+    this.activeUserSubject.next(null);
     this._loggedIn$.next(false);
   }
 
-  
-
-  setActiveUser(user: User) {
+  setActiveUser(user: User | null) {
     this.activeUserSubject.next(user);
   }
 
@@ -101,6 +97,18 @@ export class UserService {
       this.loginUrl,
       { email, password },
       { responseType: 'text' }
+    );
+  }
+
+  getActiveUserValue(): User | null {
+    return this.activeUserSubject.value;
+  }
+
+  isHost(): boolean {
+    return (
+      this.activeUserSubject.value?.roles?.some(
+        (r) => r.roleName === 'ROLE_HOST'
+      ) ?? false
     );
   }
 }

@@ -8,6 +8,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
 import { A11yModule } from '@angular/cdk/a11y';
 import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'app-property-details',
@@ -20,6 +21,7 @@ export class PropertyDetailsComponent implements OnInit {
   propertyId!: number;
   properties: Property[] = [];
   activeProperty!: Property;
+  disableReserveButton: boolean = false;
 
   constructor(
     private layoutService: LayoutService,
@@ -30,10 +32,9 @@ export class PropertyDetailsComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  
   ngOnInit(): void {
     this.layoutService.setHomePage(false);
-     this.layoutService.setHideMainMenu(false);
+    this.layoutService.setHideMainMenu(false);
     this.propertyId = Number(this.route.snapshot.paramMap.get('id'));
     this.hostService.getAllActiveProperties().subscribe({
       next: (data) => {
@@ -49,6 +50,15 @@ export class PropertyDetailsComponent implements OnInit {
     });
 
     this.userService.setProperty(this.activeProperty);
+
+    this.userService.activeUser$.subscribe((data)=>{
+      if(data?.roles[0].roleName == 'ROLE_HOST'){
+        this.disableReserveButton = true;
+      }else{
+        this.disableReserveButton = false;
+      }
+    })
+    
   }
 
   checkoutPage() {

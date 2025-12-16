@@ -108,14 +108,21 @@ export class LoginComponent {
     // });
     this.userService.login(this.email.value!, this.password.value!).subscribe({
       next: (token) => {
-        this.userService.setLoggedIn(token); 
+        this.userService.setLoggedIn(token);
         this.toastr.success('Login successful');
-        this.userService.getActiveUser().subscribe((data)=>{
+        this.userService.getActiveUser().subscribe((data) => {
           // this.userService.setActiveUser(data);
-          localStorage.setItem('user', JSON.stringify(data));
-          this.userService.setActiveUser(data); 
+          console.log('Logged in user : ', data);
 
-        })
+          localStorage.setItem('user', JSON.stringify(data));
+          this.userService.setActiveUser(data);
+
+          
+          if(data.roles[0].roleName == 'ROLE_HOST'){
+            // console.log("check : - "+data.roles[0].role +" == "+ 'ROLE_HOST');
+            this.router.navigate(['/host-dashboard']);
+          }
+        });
         this.dialogRef.close();
       },
       error: (error) => {
