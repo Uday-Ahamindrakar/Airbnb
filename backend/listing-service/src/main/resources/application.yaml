@@ -1,19 +1,25 @@
 server:
   port: 8081
+  address: 0.0.0.0
 
 spring:
   application:
     name: listing-service
 
   config:
-    import: "configserver:http://localhost:8888"
+    import: optional:configserver:http://localhost:8888
 
   cloud:
     config:
       enabled: true
 
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
-
-
-
-
+  instance:
+    hostname: localhost
+    prefer-ip-address: false

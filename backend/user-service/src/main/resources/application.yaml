@@ -1,7 +1,25 @@
+server:
+  port: 9001
+  address: 0.0.0.0
+
 spring:
   application:
     name: user-service
 
-spring.config.import: "configserver:http://localhost:8888"
+  config:
+    import: optional:configserver:http://localhost:8888
 
-spring.cloud.config.enabled: true
+  cloud:
+    config:
+      enabled: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
