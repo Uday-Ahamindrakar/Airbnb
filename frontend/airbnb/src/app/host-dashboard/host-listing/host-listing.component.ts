@@ -6,6 +6,8 @@ import { combineLatest } from 'rxjs';
 import { CardComponent } from '../../dashboard/home/card/card.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddPropertyComponent } from '../add-property/add-property.component';
 
 @Component({
   selector: 'app-host-listing',
@@ -20,7 +22,8 @@ export class HostListingComponent implements OnInit {
   constructor(
     private hostService: HostService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    
   ) {}
 
   ngOnInit(): void {
@@ -52,4 +55,8 @@ export class HostListingComponent implements OnInit {
   deleteProperty(id: number) {
     console.log('Delete', id);
   }
+
+  
+
+  
 }

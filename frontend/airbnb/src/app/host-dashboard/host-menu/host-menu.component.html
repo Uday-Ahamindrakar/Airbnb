@@ -1,53 +1,73 @@
-<div class="max-w-5xl mx-auto flex justify-between items-center">
-  <div class="text-[20px] w-full font-semibold text-[#e31b57] pl-6">
-    Host Dashboard
-  </div>
-  <button class="text-[#ffffff] text-[16px] px-4 py-2 rounded-md bg-[#e31b57] w-56 cursor-pointer    hover:bg-pink-700 transition">Add Property</button>
-</div>
+<div class="max-w-6xl mx-auto px-4 py-6">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold text-pink-600">
+      Host Dashboard
+    </h1>
 
-<div class="max-w-5xl mx-auto border-b border-[#e31b57] my-4"></div>
-
-<div class="max-w-5xl mx-auto flex justify-start p-2">
-  <div
-    class="w-[20%] px-2 border-r border-[#e31b57] flex flex-col items-center mb-2 max-h-[70vh]"
-  >
-    <div
-      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
-      (click)="activeMenu = 'profile'; profile()"
-      [class.bg-pink-200]="activeMenu === 'profile'"
+    <button
+      class="bg-pink-600 text-white px-6 py-2.5 rounded-full text-sm font-medium shadow hover:bg-pink-700 transition"
+      (click)="openAddPropertyDialog()"
     >
-      Profile
-    </div>
-    <div
-      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
-      (click)="activeMenu = 'myListing'; hostListing()"
-      [class.bg-pink-200]="activeMenu === 'myListing'"
-    >
-      My Listing
-    </div>
-    <div
-      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
-      (click)="activeMenu = 'bookingList'"
-      [class.bg-pink-200]="activeMenu === 'bookingList'"
-    >
-      Booking List
-    </div>
-    <div
-      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
-      (click)="activeMenu = 'earning'"
-      [class.bg-pink-200]="activeMenu === 'earning'"
-    >
-      Earning
-    </div>
-    <div
-      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
-      (click)="activeMenu = 'addProperty'"
-      [class.bg-pink-200]="activeMenu === 'addProperty'"
-    >
-      Add Property
-    </div>
+      + Add Property
+    </button>
   </div>
-    <div class="w-[80%] px-2 max-h-[70vh] pl-4  scroll-smooth overflow-y-auto hide-scrollbar">
-        <router-outlet></router-outlet>
-    </div>
+
+  <div class="border-b border-pink-200 mb-6"></div>
+
+  <div class="flex gap-6">
+    <aside
+      class="w-[22%] bg-white rounded-xl shadow-sm border border-pink-100 p-3 flex flex-col gap-1 max-h-[65vh]"
+    >
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'profile'"
+        [class.text-pink-600]="activeMenu === 'profile'"
+        (click)="activeMenu = 'profile'; profile()"
+      >
+        Profile
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'myListing'"
+        [class.text-pink-600]="activeMenu === 'myListing'"
+        (click)="activeMenu = 'myListing'; hostListing()"
+      >
+        My Listings
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'bookingList'"
+        [class.text-pink-600]="activeMenu === 'bookingList'"
+        (click)="activeMenu = 'bookingList'"
+      >
+        Booking List
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'earning'"
+        [class.text-pink-600]="activeMenu === 'earning'"
+        (click)="activeMenu = 'earning'"
+      >
+        Earnings
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'addProperty'"
+        [class.text-pink-600]="activeMenu === 'addProperty'"
+        (click)="activeMenu = 'addProperty'; openAddPropertyDialog()"
+      >
+        Add Property
+      </div>
+    </aside>
+
+    <main
+      class="w-[78%] bg-white rounded-xl shadow-sm border border-pink-100 p-4 max-h-[65vh] overflow-y-auto scroll-smooth hide-scrollbar"
+    >
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
