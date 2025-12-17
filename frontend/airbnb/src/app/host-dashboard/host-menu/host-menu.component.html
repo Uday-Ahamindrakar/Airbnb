@@ -1,0 +1,53 @@
+<div class="max-w-5xl mx-auto flex justify-between items-center">
+  <div class="text-[20px] w-full font-semibold text-[#e31b57] pl-6">
+    Host Dashboard
+  </div>
+  <button class="text-[#ffffff] text-[16px] px-4 py-2 rounded-md bg-[#e31b57] w-56 cursor-pointer    hover:bg-pink-700 transition">Add Property</button>
+</div>
+
+<div class="max-w-5xl mx-auto border-b border-[#e31b57] my-4"></div>
+
+<div class="max-w-5xl mx-auto flex justify-start p-2">
+  <div
+    class="w-[20%] px-2 border-r border-[#e31b57] flex flex-col items-center mb-2 max-h-[70vh]"
+  >
+    <div
+      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
+      (click)="activeMenu = 'profile'; profile()"
+      [class.bg-pink-200]="activeMenu === 'profile'"
+    >
+      Profile
+    </div>
+    <div
+      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
+      (click)="activeMenu = 'myListing'; hostListing()"
+      [class.bg-pink-200]="activeMenu === 'myListing'"
+    >
+      My Listing
+    </div>
+    <div
+      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
+      (click)="activeMenu = 'bookingList'"
+      [class.bg-pink-200]="activeMenu === 'bookingList'"
+    >
+      Booking List
+    </div>
+    <div
+      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
+      (click)="activeMenu = 'earning'"
+      [class.bg-pink-200]="activeMenu === 'earning'"
+    >
+      Earning
+    </div>
+    <div
+      class="text-gray-700 text-[15px] border-b border-[#e31b57] w-full py-2 pl-2 hover:bg-pink-100 rounded-md cursor-pointer"
+      (click)="activeMenu = 'addProperty'"
+      [class.bg-pink-200]="activeMenu === 'addProperty'"
+    >
+      Add Property
+    </div>
+  </div>
+    <div class="w-[80%] px-2 max-h-[70vh] pl-4  scroll-smooth overflow-y-auto hide-scrollbar">
+        <router-outlet></router-outlet>
+    </div>
+</div>

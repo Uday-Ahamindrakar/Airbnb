@@ -1,7 +1,5 @@
-<app-listing-card></app-listing-card>
-
-<app-listing-card></app-listing-card>
-
-<app-listing-card></app-listing-card>
-
-<app-listing-card></app-listing-card>   
+<app-listing-card
+  *ngFor="let group of cityGroups"
+  [city]="group.city"
+  [property]="group.properties"
+></app-listing-card>

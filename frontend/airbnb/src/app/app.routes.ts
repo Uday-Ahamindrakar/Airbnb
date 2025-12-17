@@ -11,6 +11,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { HostdashboardComponent } from './host-dashboard/hostdashboard/hostdashboard.component';
 import { hostguardGuard } from './auth/hostguard.guard';
 import { hostblockguardGuard } from './auth/hostblockguard.guard';
+import { HostProfileComponent } from './dashboard/profile/host-profile/host-profile.component';
+import { HostListingComponent } from './host-dashboard/host-listing/host-listing.component';
 
 export const routes: Routes = [
   {
@@ -23,11 +25,19 @@ export const routes: Routes = [
       {
         path: 'checkout',
         component: CheckoutComponent,
-        canActivate: [authGuard,hostblockguardGuard],
+        canActivate: [authGuard, hostblockguardGuard],
       },
 
       { path: 'signup', component: SignupComponent },
     ],
   },
-  { path: 'host-dashboard', component: HostdashboardComponent,canActivate: [authGuard, hostguardGuard], },
+  {
+    path: 'host-dashboard',
+    component: HostdashboardComponent,
+    canActivate: [authGuard, hostguardGuard],
+    children:[
+      {path : '', component : HostProfileComponent},
+      {path : 'mylisting', component: HostListingComponent}
+    ]
+  },
 ];

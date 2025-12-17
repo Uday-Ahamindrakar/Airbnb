@@ -1,52 +1,38 @@
-<div class="max-w-6xl h-auto mx-auto ">
-  <div class="w-full h-62 flex flex-col items-center rounded-lg ">
-    <div class="h-8 w-full px-1 flex justify-between items-center">
-      <div class="text-base font-medium mb-3">
-        Available in North Goa this weekend
-      </div>
-      <div class="flex items-center gap-2 pr-3">
-        <div
-          class="h-5 w-5 bg-gray-200 rounded-full flex justify-center items-center cursor-pointer hover:bg-gray-300" (click)="scrollLeft()"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="20px"
-            viewBox="0 -960 960 960"
-            width="20px"
-            fill="#000000"
-          >
-            <path d="M576-240 336-480l240-240 51 51-189 189 189 189-51 51Z" />
-          </svg>
-        </div>
-        <div
-          class="h-5 w-5 bg-gray-200 rounded-full flex justify-center items-center cursor-pointer hover:bg-gray-300" (click)="scrollRight()"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="18px"
-            viewBox="0 -960 960 960"
-            width="18px"
-            fill="#000000"
-          >
-            <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-          </svg>
-        </div>
-      </div>
-    </div>
+<div class="max-w-7xl mx-auto my-4 relative">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-2 px-2">
+    <h2 class="text-lg font-medium">Available in {{ city }} this weekend</h2>
 
-    <div
-      #scrollContainer
-      class="w-full px-1 overflow-x-auto scroll-smooth [&::-webkit-scrollbar]:hidden"
+    <!-- Scroll buttons -->
+    <button
+      class="h-8 w-8 bg-white shadow-md rounded-full flex justify-center items-center hover:bg-gray-100 absolute left-0 top-1/2 transform -translate-y-1/2 z-10"
+      (click)="scrollLeft()"
     >
-      <div
-        class="inline-grid grid-flow-col auto-cols-[minmax(128px,1fr)] gap-4"
-      >
-        <app-card
-          *ngFor="let p of property; trackBy: trackById"
-          [property]="p"
-          (selectProperty)="onSelectProperty($event)"
-        ></app-card>
-      </div>
-    </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <button
+      class="h-8 w-8 bg-white shadow-md rounded-full flex justify-center items-center hover:bg-gray-100 absolute right-0 top-1/2 transform -translate-y-1/2 z-10"
+      (click)="scrollRight()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Scrollable container -->
+  <div
+    #scrollContainer
+    class="flex overflow-x-auto gap-3 px-2 scroll-smooth hide-scrollbar"
+  >
+    <app-card
+      *ngFor="let p of property; trackBy: trackById"
+      class="flex-[0_0_12%] min-w-[140px]"
+      [property]="p"
+      (selectProperty)="onSelectProperty($event)"
+    ></app-card>
   </div>
 </div>

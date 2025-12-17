@@ -14,6 +14,9 @@ export class LayoutService {
   private hideMenu = new BehaviorSubject<boolean>(false);
   hideMenu$ = this.hideMenu.asObservable();
 
+  private host_dashboard = new BehaviorSubject<boolean>(false);
+  host_dashboard$ = this.host_dashboard.asObservable();
+
   setHideMainMenu(hideMenu: boolean) {
     this.hideMenu.next(hideMenu);
   }
@@ -21,4 +24,10 @@ export class LayoutService {
   setHomePage(isHome: boolean) {
     this.homePage.next(isHome);
   }
+
+  setHostDashboard(value : boolean){
+    this.host_dashboard.next(value);
+  }
+
+
 }

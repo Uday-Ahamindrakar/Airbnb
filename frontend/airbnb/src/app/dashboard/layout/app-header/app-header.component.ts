@@ -9,35 +9,37 @@ import {
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LayoutService } from '../../../services/layout.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../../../auth/login/login.component';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../model/user';
-import {Role} from '../../../model/role'
+import { Role } from '../../../model/role';
 import { ToastrService } from 'ngx-toastr';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ],
   templateUrl: './app-header.component.html',
   styleUrl: './app-header.component.css',
 })
 export class AppHeaderComponent implements OnInit {
   isHomePage: boolean = false;
   hideMainMenu: boolean = true;
+  host_dashboard_button: boolean = false;
 
   userLoggedIn: boolean = false;
-  user : User = {
+  user: User = {
     id: 0,
-      name: "",
-      email: "",
-      password: '',
-      phone: "",
-      created_at: "", // ISO date string from backend
-      roles: []
-  }
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    created_at: '', // ISO date string from backend
+    roles: [],
+  };
 
   constructor(
     private layoutServie: LayoutService,
@@ -49,11 +51,11 @@ export class AppHeaderComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.userService.showLogin$.subscribe(() => {
-    this.dialog.open(LoginComponent, {
-      width: '400px',
-      disableClose: true,
+      this.dialog.open(LoginComponent, {
+        width: '400px',
+        disableClose: true,
+      });
     });
-  });
 
     this.userService.loggedIn$.subscribe({
       next: (loggedIn) => {
@@ -69,12 +71,21 @@ export class AppHeaderComponent implements OnInit {
       this.hideMainMenu = hide;
     });
 
-    this.userService.activeUser$.subscribe((data)=>{
-      if(data){
+    this.userService.activeUser$.subscribe((data) => {
+      if (data) {
         this.user = data;
-        console.log("Header component : ",data);
+        if (this.user.roles[0].roleName == 'ROLE_HOST') {
+          this.layoutServie.setHostDashboard(true);
+        } else {
+          this.layoutServie.setHostDashboard(false);
+        }
+        console.log('Header component : ', data);
       }
-    })
+    });
+
+    this.layoutServie.host_dashboard$.subscribe((data) => {
+      this.host_dashboard_button = data;
+    });
   }
 
   navigateToHomePage() {
@@ -107,10 +118,25 @@ export class AppHeaderComponent implements OnInit {
   }
 
   logout() {
-  this.close();
-  this.userService.logout(); 
- 
-  this.router.navigate(['/home']);
-  this.toaster.success('Logout successful!');
-}
+    this.close();
+    this.layoutServie.setHostDashboard(false);
+    
+    this.layoutServie.setHostDashboard(false);
+    this.userService.logout();
+    this.router.navigate(['/home']);
+    this.toaster.success('Logout successful!');
+  }
+
+  goToHostDashboard() {
+    this.layoutServie.setHostDashboard(false);
+    this.router.navigate(['/host-dashboard']);
+  }
+
+  goToProfile(){
+    this.userService.activeUser$.subscribe((data)=>{
+      if(data?.roles[0].roleName == 'ROLE_HOST'){
+        this.router.navigate(['/host-dashboard/']);
+      }
+    })
+  }
 }

@@ -9,9 +9,12 @@ import { Property } from '../model/listing';
 export class HostService {
   private allPropertiesUrl = 'http://localhost:8080/listing/all-properties';
 
-  private propertiesSubject = new BehaviorSubject<Property[]>([]);
-  properties$ = this.propertiesSubject.asObservable();
+  // private propertiesSubject = new BehaviorSubject<Property[]>([]);
+  // properties$ = this.propertiesSubject.asObservable();
   private propertiesCache$!: Observable<Property[]>;
+
+  private selectedHostMenu = new BehaviorSubject<String>('profile');
+  selectHostMunu$ = this.selectedHostMenu.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -26,6 +29,10 @@ export class HostService {
         );
     }
     return this.propertiesCache$;
+  }
+
+  setSelectedHostMenu(value : String){
+    this.selectedHostMenu.next(value);
   }
 
   // getAllProperties(): Observable<Property[]> {

@@ -54,6 +54,7 @@ export class PropertyDetailsComponent implements OnInit {
     this.userService.activeUser$.subscribe((data)=>{
       if(data?.roles[0].roleName == 'ROLE_HOST'){
         this.disableReserveButton = true;
+        
       }else{
         this.disableReserveButton = false;
       }
