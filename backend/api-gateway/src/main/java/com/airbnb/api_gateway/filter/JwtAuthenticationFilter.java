@@ -34,6 +34,12 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
+        if (path.startsWith("/listing/hostname")) {
+            System.out.println("🟢 Allowed: Public hostname API");
+            return chain.filter(exchange);
+        }
+
+
         // Extract Authorization header
         String authHeader = exchange.getRequest()
                 .getHeaders()

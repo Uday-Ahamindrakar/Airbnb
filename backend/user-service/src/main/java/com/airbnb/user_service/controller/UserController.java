@@ -42,6 +42,15 @@ public class UserController {
 
  }
 
+ @PreAuthorize("hasRole('USER')")
+ @PatchMapping("/updateGuest/{id}")
+ public  ResponseEntity<UserDto> updateGuest(@PathVariable Long id,@RequestBody UserDto userDto){
+     System.out.println("Update user");
+     System.out.println( userDto.getName());
+     UserDto userDto1 = this.userService.updateGuest(id, userDto);
+         return ResponseEntity.status(HttpStatus.OK).body(userDto1);
+ }
+
  @PostMapping("/addHost")
  public ResponseEntity<String> addHost(@Valid @RequestBody UserDto userDto, BindingResult result){
      User checkUserExistsOrNot= this.userRepository.findByEmail(userDto.getEmail());
@@ -109,5 +118,9 @@ public class UserController {
      return this.userService.findByEmail(email);
  }
 
+ @GetMapping("/hostName/{id}")
+ public String getHostName(@PathVariable Long id){
 
+     return this.userService.getHostName(id);
+ }
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,6 +66,15 @@ public class PropertyService {
 
         Property savedProperty = propertyRepository.save(property);
         return this.PropertyToPropertyDto(savedProperty);
+    }
+
+    public String deleteProperty(Long id) {
+        if (!propertyRepository.existsById(id)) {
+            return "Property Does not Exist In The DB";
+        }
+
+        propertyRepository.deleteById(id);
+        return "Property Deleted";
     }
 
     public List<PropertyDto> getPropertiesByHostId(String email) {

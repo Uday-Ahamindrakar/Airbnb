@@ -68,4 +68,21 @@ public class ListingController {
        return this.userService.getCurrentUserDetials(email);
     }
 
+    @GetMapping("/hostname/{id}")
+    public String getHostName(@PathVariable Long id){
+
+        return this.userService.getHostName(id);
+    }
+
+    @DeleteMapping("/properties/{id}")
+    public ResponseEntity<String> deleteProperty(@PathVariable Long id){
+        String result = propertyService.deleteProperty(id);
+
+        if (result.contains("Does not Exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
 }
