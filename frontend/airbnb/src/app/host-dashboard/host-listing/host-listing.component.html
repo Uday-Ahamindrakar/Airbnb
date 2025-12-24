@@ -11,7 +11,7 @@
       class="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition"
     >
       <button
-        class="bg-white shadow-md rounded-full p-2 hover:bg-gray-100"
+        class="bg-white shadow-md rounded-full p-2 hover:bg-gray-100 cursor-pointer"
         (click)="editProperty(p); $event.stopPropagation()"
       >
         <svg
@@ -26,7 +26,7 @@
       </button>
 
       <button
-        class="bg-white shadow-md rounded-full p-2 hover:bg-red-100 text-red-500"
+        class="bg-white shadow-md rounded-full p-2 hover:bg-red-100 text-red-500 cursor-pointer"
         (click)="deleteProperty(p.id); $event.stopPropagation()"
       >
         <svg

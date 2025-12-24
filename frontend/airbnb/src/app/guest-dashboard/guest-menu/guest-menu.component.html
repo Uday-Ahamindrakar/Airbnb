@@ -1,0 +1,61 @@
+<div class="max-w-6xl mx-auto px-4 py-6">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold text-pink-600">
+      Guest Dashboard
+    </h1>
+
+   
+  </div>
+
+  <div class="border-b border-pink-200 mb-6"></div>
+
+  <div class="flex gap-6">
+    <aside
+      class="w-[22%] bg-white rounded-xl shadow-sm border border-pink-100 p-3 flex flex-col gap-1 max-h-[65vh]"
+    >
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'profile'"
+        [class.text-pink-600]="activeMenu === 'profile'"
+        (click)="activeMenu = 'profile'; profile()"
+      >
+        Profile
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'myListing'"
+        [class.text-pink-600]="activeMenu === 'myListing'"
+        (click)="activeMenu = 'myListing'; hostListing()"
+      >
+        My Listings
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'bookingList'"
+        [class.text-pink-600]="activeMenu === 'bookingList'"
+        (click)="activeMenu = 'bookingList'"
+      >
+        Booking List
+      </div>
+
+      <div
+        class="px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition"
+        [class.bg-pink-100]="activeMenu === 'earning'"
+        [class.text-pink-600]="activeMenu === 'earning'"
+        (click)="activeMenu = 'earning'"
+      >
+        Earnings
+      </div>
+
+      
+    </aside>
+
+    <main
+      class="w-[78%] bg-white rounded-xl shadow-sm border border-pink-100 p-4 max-h-[65vh] overflow-y-auto scroll-smooth hide-scrollbar"
+    >
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

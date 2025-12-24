@@ -1,42 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HostService } from '../../services/host.service';
-import { Property } from '../../model/listing';
 import { UserService } from '../../services/user.service';
-import { combineLatest } from 'rxjs';
-import { CardComponent } from '../../dashboard/home/card/card.component';
-import { CommonModule } from '@angular/common';
+import { Property } from '../../model/listing';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { AddPropertyComponent } from '../add-property/add-property.component';
+import { ToastrService } from 'ngx-toastr';
+import { combineLatest, Subject } from 'rxjs';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { CardComponent } from '../../dashboard/home/card/card.component';
 
 @Component({
   selector: 'app-host-listing',
   standalone: true,
-  imports: [CardComponent, CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './host-listing.component.html',
   styleUrl: './host-listing.component.css',
 })
-export class HostListingComponent implements OnInit {
+export class HostListingComponent implements OnInit, OnDestroy {
+
   properties: Property[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
     private hostService: HostService,
     private userService: UserService,
     private router: Router,
-    
+    private toaster: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.hostService.setSelectedHostMenu('myListing');
+
     combineLatest([
-      this.hostService.getAllActiveProperties(),
-      this.userService.activeUser$,
-    ]).subscribe(([properties, activeHost]) => {
-      if (!activeHost) return;
+      this.userService.activeUser$.pipe(filter(Boolean)),
+      this.hostService.getAllActiveProperties()
+    ])
+      .pipe(
+        map(([host, properties]) =>
+          properties.filter(p => p.hostId === host!.id)
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: properties => {
+          this.properties = properties;
+        },
+        error: () => {
+          this.toaster.error('Failed to load properties');
+        }
+      });
+  }
 
-      this.properties = properties.filter((p) => p.hostId === activeHost.id);
+  onSelectProperty(property: Property): void {
+    this.router.navigate(['/property', property.id]);
+  }
 
-      console.log('Host properties:', this.properties);
+  editProperty(property: Property): void {
+    console.log('Edit property:', property);
+  }
+
+  deleteProperty(id: number): void {
+    this.hostService.deleteProperty(id).subscribe({
+      next: () => {
+        this.toaster.success('Property deleted');
+        this.hostService.refreshProperties(); // 🔥 sync trigger
+      },
+      error: () => {
+        this.toaster.error('Failed to delete property');
+      }
     });
   }
 
@@ -44,19 +75,8 @@ export class HostListingComponent implements OnInit {
     return item.id;
   }
 
-  onSelectProperty(selectedProperty: Property) {
-    this.router.navigate(['/property', selectedProperty.id]);
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
-
-  editProperty(property: Property) {
-    console.log('Edit', property);
-  }
-
-  deleteProperty(id: number) {
-    console.log('Delete', id);
-  }
-
-  
-
-  
 }

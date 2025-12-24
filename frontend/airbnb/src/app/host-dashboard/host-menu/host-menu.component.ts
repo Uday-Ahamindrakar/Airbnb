@@ -21,7 +21,7 @@ export class HostMenuComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    this.hostService.selectHostMunu$.subscribe((data)=>{
+    this.hostService.selectedHostMenu$.subscribe((data)=>{
       this.activeMenu = data;
     })
   }

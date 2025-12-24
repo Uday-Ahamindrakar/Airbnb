@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
 
     provideToastr({
       timeOut: 3000,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
   ]

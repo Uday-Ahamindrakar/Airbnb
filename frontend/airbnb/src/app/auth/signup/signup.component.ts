@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {
@@ -16,6 +16,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { LayoutService } from '../../services/layout.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../model/user';
+import { UserPayload } from '../../model/user-payload';
+import { Router } from '@angular/router';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +40,8 @@ import { LayoutService } from '../../services/layout.service';
 export class SignupComponent implements OnInit {
   // email = '';
   // password = '';
+
+  user: UserPayload = {} as UserPayload;
 
   loginForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(4)]],
@@ -63,10 +70,17 @@ export class SignupComponent implements OnInit {
     // provider: [null, Validators.required],
   });
 
-  constructor(private toastr: ToastrService, private fb: FormBuilder, private layoutService : LayoutService) {}
+  constructor(
+    private toastr: ToastrService,
+    private fb: FormBuilder,
+    private layoutService: LayoutService,
+    private userService: UserService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-     this.layoutService.setHideMainMenu(true);
+    this.layoutService.setHideMainMenu(true);
   }
 
   login() {
@@ -87,9 +101,49 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    console.log('Login payload:', this.loginForm.value);
+    if (this.loginForm.value.name) {
+      if (this.loginForm.value.email) {
+        if (this.loginForm.value.password) {
+          if (this.loginForm.value.phone) {
+            this.user.name = this.loginForm.value.name;
+            this.user.email = this.loginForm.value.email;
+            this.user.password = this.loginForm.value.password;
+            this.user.phone = this.loginForm.value.phone;
+
+            if (this.user) {
+              this.userService.addNewUser(this.user).subscribe({
+                next: (res) => {
+                  if (res == "Guest account successfully created :)") {
+                    this.toastr.success(res);
+                    this.router.navigate(['']);
+                    this.openLogin();
+                  }
+                  if(res == "Account with the given email exists in the database :("){
+                    this.toastr.warning("User already exist");
+                    this.loginForm.reset();
+                  }
+                  
+                 
+                },
+                error: (err) => {
+                  this.toastr.error(err);
+                },
+              });
+            }
+          }
+        }
+      }
+    }
+    console.log('Login payload:', this.loginForm.value.name);
   }
   notify() {
     this.toastr.success('Test');
+  }
+
+  openLogin() {
+    this.dialog.open(LoginComponent, {
+      width: '400px',
+      disableClose: true,
+    });
   }
 }

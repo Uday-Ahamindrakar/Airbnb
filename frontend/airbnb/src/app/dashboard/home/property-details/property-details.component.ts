@@ -22,6 +22,7 @@ export class PropertyDetailsComponent implements OnInit {
   properties: Property[] = [];
   activeProperty!: Property;
   disableReserveButton: boolean = false;
+  hostNameData !: string;
 
   constructor(
     private layoutService: LayoutService,
@@ -41,8 +42,16 @@ export class PropertyDetailsComponent implements OnInit {
         this.properties = data;
         this.activeProperty = this.properties.find(
           (prop) => prop.id === this.propertyId
+
+         
         )!;
-        // console.log("Fetched properties from backend:", this.properties);
+
+        if(this.activeProperty){
+           this.hostService.getHostNameById(this.activeProperty.hostId).subscribe((host_name)=>{
+            this.hostNameData = host_name;
+          })
+        }
+       
       },
       error: (error) => {
         console.error('Error fetching properties:', error);
@@ -63,7 +72,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   checkoutPage() {
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['/checkout/property',this.propertyId]);
     // this.router.navigate(['/checkout'], { state: { property: this.activeProperty } });
     // this.router.navigate(['/checkout', this.activeProperty.id]);
   }

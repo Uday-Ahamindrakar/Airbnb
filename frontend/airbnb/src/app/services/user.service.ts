@@ -4,6 +4,8 @@ import { Property } from '../model/listing';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user';
 import { isPlatformBrowser } from '@angular/common';
+import { UserPayload } from '../model/user-payload';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +13,11 @@ import { isPlatformBrowser } from '@angular/common';
 export class UserService {
   private loginUrl = 'http://localhost:8080/auth/login';
 
-  // private logoutUrl = 'http://localhost:8080/auth/logout';
+  private addNewUserUrl = 'http://localhost:8080/auth/addGuest';
 
   private activeUserUrl = 'http://localhost:8080/listing/getUserDetails';
+
+  private updateUserUrl = 'http://localhost:8080/auth/updateGuest';
 
   private propertiesSubject = new BehaviorSubject<Property | null>(null);
   properties$ = this.propertiesSubject.asObservable();
@@ -48,24 +52,9 @@ export class UserService {
     this.showLoginPopup$.next();
   }
 
-  // constructor(
-  //   @Inject(PLATFORM_ID) platformId: Object,
-  //   private http: HttpClient
-  // ) {
-  //   if (isPlatformBrowser(platformId)) {
-  //     this._loggedIn$.next(!!localStorage.getItem('access_token'));
-  //   }
-
-  //   const storedUser = localStorage.getItem('user');
-  //   if (storedUser) {
-  //     this.activeUserSubject.next(JSON.parse(storedUser));
-  //   }
-  // }
-
-  // private hasToken(): boolean {
-  //   if (typeof window === 'undefined') return false;
-  //   return !!localStorage.getItem('access_token');
-  // }
+  addNewUser(user: UserPayload): Observable<string> {
+    return this.http.post(this.addNewUserUrl, user, { responseType: 'text' });
+  }
 
   setLoggedIn(token: string) {
     localStorage.setItem('access_token', token);
@@ -110,5 +99,10 @@ export class UserService {
         (r) => r.roleName === 'ROLE_HOST'
       ) ?? false
     );
+  }
+
+  updateGuest(id: number, user: UserPayload): Observable<UserPayload> {
+    
+    return this.http.patch<UserPayload>(`${this.updateUserUrl}/${id}`,user)
   }
 }

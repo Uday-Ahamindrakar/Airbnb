@@ -137,6 +137,10 @@ export class AppHeaderComponent implements OnInit {
       if(data?.roles[0].roleName == 'ROLE_HOST'){
         this.router.navigate(['/host-dashboard/']);
       }
+
+      if(data?.roles[0].roleName == 'ROLE_USER'){
+        this.router.navigate(['/guest-dashboard/']);
+      }
     })
   }
 }

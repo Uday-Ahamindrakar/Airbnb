@@ -13,6 +13,8 @@ import { hostguardGuard } from './auth/hostguard.guard';
 import { hostblockguardGuard } from './auth/hostblockguard.guard';
 import { HostProfileComponent } from './dashboard/profile/host-profile/host-profile.component';
 import { HostListingComponent } from './host-dashboard/host-listing/host-listing.component';
+import { GuestDashboardComponent } from './guest-dashboard/guest-dashboard/guest-dashboard.component';
+import { GuestProfileComponent } from './dashboard/profile/guest-profile/guest-profile.component';
 
 export const routes: Routes = [
   {
@@ -23,13 +25,21 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'property/:id', component: PropertyDetailsComponent },
       {
-        path: 'checkout',
+        path: 'checkout/property/:id',
         component: CheckoutComponent,
         canActivate: [authGuard, hostblockguardGuard],
       },
 
       { path: 'signup', component: SignupComponent },
     ],
+  },
+  {
+    path : 'guest-dashboard',
+    component : GuestDashboardComponent,
+    canActivate: [authGuard, hostblockguardGuard],
+    children : [
+      {path : '' , component : GuestProfileComponent}
+    ]
   },
   {
     path: 'host-dashboard',
