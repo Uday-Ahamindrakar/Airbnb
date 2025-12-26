@@ -42,7 +42,7 @@ public class UserController {
 
  }
 
- @PreAuthorize("hasRole('USER')")
+ @PreAuthorize("hasRole('HOST') or hasRole('USER')")
  @PatchMapping("/updateGuest/{id}")
  public  ResponseEntity<UserDto> updateGuest(@PathVariable Long id,@RequestBody UserDto userDto){
      System.out.println("Update user");
@@ -50,6 +50,8 @@ public class UserController {
      UserDto userDto1 = this.userService.updateGuest(id, userDto);
          return ResponseEntity.status(HttpStatus.OK).body(userDto1);
  }
+
+
 
  @PostMapping("/addHost")
  public ResponseEntity<String> addHost(@Valid @RequestBody UserDto userDto, BindingResult result){

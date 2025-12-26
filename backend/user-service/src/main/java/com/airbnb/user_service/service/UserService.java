@@ -65,6 +65,8 @@ public class UserService {
         return this.userToUserDto(user1);
     }
 
+
+
     public String addHost(UserDto userDto){
         User user = this.userDtoToUser(userDto);
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -124,4 +126,6 @@ public class UserService {
     public User userDtoToUser(UserDto userDto){
         return this.modelMapper.map(userDto , User.class);
     }
+
+
 }

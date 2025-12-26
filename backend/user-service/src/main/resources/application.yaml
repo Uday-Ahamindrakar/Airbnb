@@ -13,6 +13,15 @@ spring:
     config:
       enabled: true
 
+  datasource:
+    hikari:
+      pool-name: UserServiceHikariPool
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
 eureka:
   client:
     register-with-eureka: true
@@ -23,3 +32,22 @@ eureka:
   instance:
     hostname: localhost
     prefer-ip-address: false
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+  metrics:
+    enable:
+      jdbc: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.5,0.95,0.99

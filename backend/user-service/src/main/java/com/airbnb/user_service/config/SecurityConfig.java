@@ -61,7 +61,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/addGuest", "/auth/login", "/auth/addHost","/auth/hostName/**").permitAll()
+                    .requestMatchers("/auth/addGuest", "/auth/login", "/auth/addHost","/auth/hostName/**", "/actuator/**").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
