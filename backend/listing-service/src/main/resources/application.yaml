@@ -1,25 +1,29 @@
 server:
   port: 8081
-  address: 0.0.0.0
 
 spring:
   application:
     name: listing-service
 
-  config:
-    import: optional:configserver:http://localhost:8888
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
-  cloud:
-    config:
-      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+# External service URLs (Feign uses these)
+services:
+  user-service-url: ${USER_SERVICE_URL}
 
-  instance:
-    hostname: localhost
-    prefer-ip-address: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+  endpoint:
+    health:
+      show-details: always

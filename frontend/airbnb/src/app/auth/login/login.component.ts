@@ -88,6 +88,7 @@ export class LoginComponent {
 
     this.userService.login(this.email.value!, this.password.value!).subscribe({
       next: (token) => {
+        console.log('Login successful, token:', token);
         this.userService.setLoggedIn(token);
         this.toastr.success('Login successful');
         this.userService.getActiveUser().subscribe((data) => {

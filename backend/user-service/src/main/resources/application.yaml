@@ -1,19 +1,19 @@
 server:
   port: 9001
-  address: 0.0.0.0
 
 spring:
   application:
     name: user-service
 
-  config:
-    import: optional:configserver:http://localhost:8888
-
   cloud:
     config:
-      enabled: true
+      enabled: false
 
   datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
     hikari:
       pool-name: UserServiceHikariPool
       maximum-pool-size: 10
@@ -22,32 +22,20 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
-  instance:
-    hostname: localhost
-    prefer-ip-address: false
-
+jwt:
+  secret: ${JWT_SECRET}
 
 management:
   endpoints:
     web:
       exposure:
-        include: health,metrics,prometheus
+        include: health,metrics
   endpoint:
     health:
       show-details: always
-
-  metrics:
-    enable:
-      jdbc: true
-    distribution:
-      percentiles-histogram:
-        http.server.requests: true
-      percentiles:
-        http.server.requests: 0.5,0.95,0.99

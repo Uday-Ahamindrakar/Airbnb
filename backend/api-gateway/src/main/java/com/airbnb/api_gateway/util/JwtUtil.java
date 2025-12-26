@@ -17,10 +17,14 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    private SecretKey getSignKey() {
-        byte[] keyBytes = Base64.getDecoder().decode(secret);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
+//    private SecretKey getSignKey() {
+//        byte[] keyBytes = Base64.getDecoder().decode(secret);
+//        return Keys.hmacShaKeyFor(keyBytes);
+//    }
+private SecretKey getSignKey() {
+    return Keys.hmacShaKeyFor(secret.getBytes());
+}
+
 
     // Extract all claims from JWT
     public Claims extractAllClaims(String token) {

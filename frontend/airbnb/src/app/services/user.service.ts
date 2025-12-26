@@ -77,9 +77,23 @@ export class UserService {
     this.propertiesSubject.next(property);
   }
 
-  getActiveUser(): Observable<User> {
-    return this.http.get<User>(this.activeUserUrl);
-  }
+  // getActiveUser(): Observable<User> {
+  //   return this.http.get<User>(this.activeUserUrl);
+  // }
+
+  getActiveUser() : Observable<User> {
+  const token = localStorage.getItem('token');
+
+  return this.http.get<User>(
+    this.activeUserUrl,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+}
+
 
   login(email: string, password: string): Observable<string> {
     return this.http.post(
