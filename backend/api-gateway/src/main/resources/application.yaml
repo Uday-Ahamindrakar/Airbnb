@@ -13,7 +13,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins:
-              - "http://localhost:4200"
+              - "https://airbnb-1-bndh.onrender.com"
             allowedHeaders:
               - Authorization
               - Content-Type
