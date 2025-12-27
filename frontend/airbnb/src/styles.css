@@ -1,4 +1,13 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force Tailwind priority */
+@layer base {
+  *, ::before, ::after {
+    border-style: solid;
+  }
+}
 
 
 html, body { height: 100%; }
