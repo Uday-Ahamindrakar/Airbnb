@@ -8,9 +8,6 @@ spring:
   cloud:
     gateway:
 
-      default-filters:
-        - PreserveHostHeader
-
       globalcors:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:
@@ -30,22 +27,20 @@ spring:
 
       routes:
 
-        # AUTH → USER SERVICE
+        # AUTH → USER SERVICE (NO STRIP)
         - id: user-service
           uri: ${USER_SERVICE_URL}
           predicates:
             - Path=/auth/**
           filters:
-            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # LISTING → LISTING SERVICE
+        # LISTING → LISTING SERVICE (NO STRIP)
         - id: listing-service
           uri: ${LISTING_SERVICE_URL}
           predicates:
             - Path=/listing/**
           filters:
-            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
 jwt:
