@@ -6,18 +6,20 @@ import { User } from '../model/user';
 import { isPlatformBrowser } from '@angular/common';
 import { UserPayload } from '../model/user-payload';
 import { response } from 'express';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
-  providedIn: 'root',
+ providedIn: 'root',
 })
 export class UserService {
-  private loginUrl = 'http://localhost:8080/auth/login';
+private baseUrl = environment.apiBaseUrl;
 
-  private addNewUserUrl = 'http://localhost:8080/auth/addGuest';
+private loginUrl = `${this.baseUrl}/auth/login`;
+private addNewUserUrl = `${this.baseUrl}/auth/addGuest`;
+private activeUserUrl = `${this.baseUrl}/listing/getUserDetails`;
+private updateUserUrl = `${this.baseUrl}/auth/updateGuest`;
 
-  private activeUserUrl = 'http://localhost:8080/listing/getUserDetails';
-
-  private updateUserUrl = 'http://localhost:8080/auth/updateGuest';
 
   private propertiesSubject = new BehaviorSubject<Property | null>(null);
   properties$ = this.propertiesSubject.asObservable();

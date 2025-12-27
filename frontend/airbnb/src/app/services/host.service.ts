@@ -4,15 +4,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, shareReplay } from 'rxjs/operators';
 import { Property } from '../model/listing';
 import { CreatePropertyPayload } from '../model/create-property-payload';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+ providedIn: 'root',
 })
 export class HostService {
-  private allPropertiesUrl = 'http://localhost:8080/listing/all-properties';
-  private addPropertyUrl = 'http://localhost:8080/listing/add-property';
-  private deletePropertyUrl = 'http://localhost:8080/listing/properties';
-  private hostNameUrl = 'http://localhost:8080/listing/hostname';
+private baseUrl = environment.apiBaseUrl;
+
+private allPropertiesUrl = `${this.baseUrl}/listing/all-properties`;
+private addPropertyUrl = `${this.baseUrl}/listing/add-property`;
+private deletePropertyUrl = `${this.baseUrl}/listing/properties`;
+private hostNameUrl = `${this.baseUrl}/listing/hostname`;
+
+
 
   /* 🔥 TRIGGER FOR REFRESH */
   private refresh$ = new BehaviorSubject<void>(undefined);
